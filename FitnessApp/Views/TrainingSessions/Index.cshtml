@@ -1,53 +1,65 @@
 ﻿@model IEnumerable<FitnessApp.Models.TrainingSession>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Training Sessions";
+    var isAdmin = User.IsInRole("Admin");
+    var isMember = User.IsInRole("Member");
 }
 
-<h1>Index</h1>
+<h1>Training Sessions</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+@if (isAdmin)
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Create New Session</a>
+    </p>
+}
+
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Trainer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SessionDateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MaxParticipants)
-            </th>
+            <th>Name</th>
+            <th>Trainer</th>
+            <th>Session Date and Time</th>
+            <th>Max Participants</th>
+            <th>Available Slots</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Trainer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SessionDateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaxParticipants)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.SessionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SessionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.SessionId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Trainer)</td>
+                <td>@item.SessionDateTime.ToString("g")</td>
+                <td>@item.MaxParticipants</td>
+                <td>
+                    @(item.MaxParticipants - (item.Reservations?.Count() ?? 0))
+                </td>
+                <td>
+                    @if (isAdmin)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.SessionId" class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.SessionId" class="btn btn-sm btn-info">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.SessionId" class="btn btn-sm btn-danger">Delete</a>
+                    }
+                    else if (isMember)
+                    {
+                        @if ((item.MaxParticipants - (item.Reservations?.Count() ?? 0)) > 0)
+                        {
+                            <form asp-action="Reserve" asp-route-id="@item.SessionId" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-success">Reserve</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Fully Booked</span>
+                        }
+                        <a asp-action="Details" asp-route-id="@item.SessionId" class="btn btn-sm btn-info">Details</a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
