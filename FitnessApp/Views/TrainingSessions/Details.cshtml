@@ -1,0 +1,77 @@
+﻿@model FitnessApp.Models.TrainingSession
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details of Training Session</h1>
+
+<div>
+    <h4>Training Session Information</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Trainer)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Trainer)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SessionDateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.SessionDateTime.ToString("g")
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MaxParticipants)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MaxParticipants)
+        </dd>
+        <dt class="col-sm-2">
+            Available Slots
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.MaxParticipants - (Model.Reservations?.Count() ?? 0))
+        </dd>
+    </dl>
+</div>
+
+@if (Model.Reservations != null && Model.Reservations.Any())
+{
+    <h4>Members Joined</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Member Name</th>
+                <th>Email</th>
+                <th>Reservation Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reservation in Model.Reservations)
+            {
+                <tr>
+                    <td>@reservation.User?.UserName</td>
+                    <td>@reservation.User?.Email</td>
+                    <td>@reservation.ReservationDateTime.ToString("g")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No members have joined this session yet.</p>
+}
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.SessionId" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
