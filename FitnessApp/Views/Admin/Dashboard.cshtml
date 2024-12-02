@@ -1,6 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Admin Dashboard";
+
     var popularSessions = ViewBag.PopularSessions as IEnumerable<FitnessApp.Models.TrainingSession>;
+
     var trainers = ViewBag.Trainers as IEnumerable<FitnessApp.Models.Trainer>;
 }
 
@@ -36,6 +38,7 @@
 <h2>Most Popular Training Sessions</h2>
 
 @if (popularSessions != null && popularSessions.Any())
+
 {
     <table class="table table-striped">
         <thead>
@@ -47,6 +50,7 @@
         </thead>
         <tbody>
             @foreach (var session in popularSessions)
+
             {
                 <tr>
                     <td>@session.Name</td>
@@ -57,7 +61,9 @@
         </tbody>
     </table>
 }
+
 else
+
 {
     <p>No popular training sessions found.</p>
 }
@@ -65,6 +71,7 @@ else
 <h2>All Trainers</h2>
 
 @if (trainers != null && trainers.Any())
+
 {
     <table class="table table-striped">
         <thead>
@@ -76,19 +83,27 @@ else
         </thead>
         <tbody>
             @foreach (var trainer in trainers)
+
             {
                 <tr>
                     <td>@trainer.Name</td>
                     <td>
                         <a asp-action="EditTrainer" asp-route-id="@trainer.Id" class="btn btn-warning btn-sm">Edit</a>
-                        <a asp-action="DeleteTrainer" asp-route-id="@trainer.Id" class="btn btn-danger btn-sm">Delete</a>
+
+                        <!-- Delete Trainer button in a form, triggering POST request -->
+                        <form method="post" asp-action="DeleteTrainer" asp-route-id="@trainer.Id" class="d-inline">
+                            @Html.AntiForgeryToken()  <!-- Add anti-forgery token -->
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 }
+
 else
+
 {
     <p>No trainers found.</p>
 }
@@ -98,6 +113,7 @@ else
     <a asp-action="CreateTrainer" class="btn btn-primary">Create New Trainer</a>
 </div>
 
+<!-- Button to view pending requests -->
 <div class="mt-3">
     <a asp-action="ManageTrainingRequests" class="btn btn-warning">View Pending Requests</a>
 </div>

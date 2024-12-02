@@ -52,13 +52,13 @@ public class AdminController : Controller
         {
             return NotFound();
         }
-        return View(trainer);
+        return View(trainer); // Returns the EditTrainer view with the current trainer data
     }
 
     [HttpPost]
     [Authorize(Roles = "Admin")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> EditTrainer(int id, [Bind("Name")] Trainer trainer)
+    public async Task<IActionResult> EditTrainer(int id, [Bind("Id,Name,Specialization")] Trainer trainer)
     {
         if (id != trainer.Id)
         {
@@ -67,29 +67,53 @@ public class AdminController : Controller
 
         if (ModelState.IsValid)
         {
-            _context.Update(trainer);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Dashboard");
+            try
+            {
+                _context.Update(trainer); // Updates the trainer in the database
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TrainerExists(trainer.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("Dashboard"); // Redirects back to the dashboard after saving
         }
-        return View(trainer);
+        return View(trainer); // Returns the form with validation errors if model is invalid
     }
 
-    // Delete Trainer
+    private bool TrainerExists(int id)
+    {
+        return _context.Trainers.Any(e => e.Id == id);
+    }
+
+
     [HttpPost]
     [Authorize(Roles = "Admin")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteTrainer(int id)
     {
+        // Find the trainer by id
         var trainer = await _context.Trainers.FindAsync(id);
+
         if (trainer == null)
         {
-            return NotFound();
+            return NotFound();  // If no trainer is found, return 404
         }
 
+        // Remove the trainer from the database
         _context.Trainers.Remove(trainer);
-        await _context.SaveChangesAsync();
-        return RedirectToAction("Dashboard");
+        await _context.SaveChangesAsync();  // Save the changes to the database
+
+        return RedirectToAction("Dashboard");  // Redirect to Dashboard after deletion
     }
+
 
 
 
@@ -124,6 +148,34 @@ public class AdminController : Controller
             .ToListAsync();
 
         return View(pendingRequests);
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UpdateRequestStatus(int id, string status)
+    {
+        // Check for valid status
+        if (status != "Approved" && status != "Rejected")
+        {
+            return BadRequest("Invalid status value.");
+        }
+
+        // Find the training request by ID
+        var request = await _context.PersonalTrainingRequests.FindAsync(id);
+        if (request == null)
+        {
+            return NotFound(); // If request is not found, return 404
+        }
+
+        // Update the status of the training request
+        request.Status = status;
+
+        // Save changes to the database
+        await _context.SaveChangesAsync();
+
+        // Redirect back to the page where the admin can manage training requests
+        return RedirectToAction("ManageTrainingRequests"); // Or you can use RedirectToAction("Dashboard") if needed
     }
 
 

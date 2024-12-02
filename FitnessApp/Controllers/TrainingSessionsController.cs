@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using FitnessApp.Data;
 using FitnessApp.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FitnessApp.Controllers
 {
@@ -254,6 +255,22 @@ namespace FitnessApp.Controllers
         {
             return _context.TrainingSessions.Any(e => e.SessionId == id);
         }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Member")]
+        public async Task<IActionResult> CreateTrainingRequest()
+        {
+            // Get a list of all trainers
+            var trainers = await _context.Trainers.ToListAsync();
+
+            // Pass the list of trainers to the view
+            ViewBag.Trainers = new SelectList(trainers, "Id", "Name"); // "Id" is the value, "Name" is what is displayed
+
+            return View();
+        }
+
+
 
 
         [HttpPost]
