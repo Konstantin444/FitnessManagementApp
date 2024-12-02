@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FitnessApp.Data;
 using FitnessApp.Models;
+using System.Security.Claims;
 
 namespace FitnessApp.Controllers
 {
@@ -21,8 +22,21 @@ namespace FitnessApp.Controllers
         public async Task<IActionResult> Index()
         {
             var trainingSessions = await _context.TrainingSessions.Include(t => t.Reservations).ToListAsync();
+
+            if (User.IsInRole("Member"))
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var personalRequests = await _context.PersonalTrainingRequests
+                    .Where(r => r.MemberId == userId)
+                    .Include(r => r.Trainer)
+                    .ToListAsync();
+
+                ViewBag.PersonalTrainingRequests = personalRequests;
+            }
+
             return View(trainingSessions);
         }
+
 
         // GET: TrainingSessions/Details/5
         [Authorize]
@@ -167,15 +181,13 @@ namespace FitnessApp.Controllers
                 return NotFound();
             }
 
-            // Check if there are available slots
             if (trainingSession.MaxParticipants <= trainingSession.Reservations.Count)
             {
                 ModelState.AddModelError("", "No spots available for this session.");
                 return RedirectToAction(nameof(Index));
             }
 
-            // Check if the user has already reserved a spot
-            var userId = User.Claims.First(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+            var userId = User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
             var existingReservation = await _context.Reservations
                 .FirstOrDefaultAsync(r => r.UserId == userId && r.TrainingSessionId == id);
 
@@ -185,7 +197,6 @@ namespace FitnessApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            // Create a new reservation
             var reservation = new Reservation
             {
                 UserId = userId,
@@ -199,9 +210,103 @@ namespace FitnessApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: Request Personal Training
+        [Authorize(Roles = "Member")]
+        public async Task<IActionResult> RequestTraining()
+        {
+            var trainers = await _context.Trainers.ToListAsync();
+            return View(trainers);
+        }
+
+        // POST: Request Personal Training
+        [HttpPost]
+        [Authorize(Roles = "Member")]
+        public async Task<IActionResult> RequestTraining(int trainerId, DateTime date)
+        {
+            var request = new PersonalTrainingRequest
+            {
+                TrainerId = trainerId,
+                Date = date,
+                Status = "Pending",
+                MemberId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+            };
+
+            _context.PersonalTrainingRequests.Add(request);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("MyRequests");
+        }
+
+        // GET: View Personal Training Requests
+        [Authorize(Roles = "Member")]
+        public async Task<IActionResult> MyRequests()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var requests = await _context.PersonalTrainingRequests
+                .Where(r => r.MemberId == userId)
+                .Include(r => r.Trainer)
+                .ToListAsync();
+
+            return View(requests);
+        }
+
         private bool TrainingSessionExists(int id)
         {
             return _context.TrainingSessions.Any(e => e.SessionId == id);
         }
+
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateRequestStatus(int id, string status)
+        {
+            var request = await _context.PersonalTrainingRequests.FindAsync(id);
+            if (request == null)
+            {
+                return NotFound();
+            }
+
+            request.Status = status;
+            _context.Update(request);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(ManageRequests));
+        }
+
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult CreateTrainer()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateTrainer([Bind("Name,Specialization")] Trainer trainer)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Trainers.Add(trainer);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index"); // Redirect to a list of trainers or training sessions
+            }
+            return View(trainer);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ManageRequests()
+        {
+            var pendingRequests = await _context.PersonalTrainingRequests
+                .Include(r => r.Member)
+                .Include(r => r.Trainer)
+                .Where(r => r.Status == "Pending")
+                .ToListAsync();
+
+            return View(pendingRequests);
+        }
+
+
     }
 }

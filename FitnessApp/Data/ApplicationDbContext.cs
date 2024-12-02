@@ -16,5 +16,11 @@ namespace FitnessApp.Data
 
         // DbSet for Reservations
         public DbSet<Reservation> Reservations { get; set; }
+        
+        //DbSet  for Trainer and Trainrequest
+        public DbSet<PersonalTrainingRequest> PersonalTrainingRequests { get; set; }
+        public DbSet<Trainer> Trainers { get; set; }
+
+
     }
 }

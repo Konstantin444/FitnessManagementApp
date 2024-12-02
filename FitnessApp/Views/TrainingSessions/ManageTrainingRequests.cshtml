@@ -1,0 +1,33 @@
+﻿@model IEnumerable<PersonalTrainingRequest>
+
+<h2>Manage Training and Personal Training Requests</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Member</th>
+            <th>Trainer</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td>@(request.Member?.UserName ?? "Unknown Member")</td>
+                <td>@(request.Trainer?.Name ?? "Unknown Trainer")</td>
+                <td>@request.Date.ToString("g")</td>
+                <td>@request.Status</td>
+                <td>
+                    <form method="post" action="/TrainingSessions/UpdateRequestStatus">
+                        <input type="hidden" name="id" value="@request.Id" />
+                        <button type="submit" name="status" value="Approved" class="btn btn-success">Approve</button>
+                        <button type="submit" name="status" value="Rejected" class="btn btn-danger">Reject</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

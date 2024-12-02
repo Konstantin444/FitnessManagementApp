@@ -12,18 +12,20 @@
 {
     <p>
         <a asp-action="Create" class="btn btn-primary">Create New Session</a>
+        <a asp-action="CreateTrainer" class="btn btn-secondary">Add New Trainer</a>
+        <a asp-action="ManageRequests" class="btn btn-secondary">Manage Pending Requests</a>
     </p>
 }
 
-<table class="table table-striped">
-    <thead>
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
         <tr>
             <th>Name</th>
             <th>Trainer</th>
             <th>Session Date and Time</th>
             <th>Max Participants</th>
             <th>Available Slots</th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -32,7 +34,7 @@
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.Name)</td>
                 <td>@Html.DisplayFor(modelItem => item.Trainer)</td>
-                <td>@item.SessionDateTime.ToString("g")</td>
+                <td>@item.SessionDateTime.ToString("f")</td>
                 <td>@item.MaxParticipants</td>
                 <td>
                     @(item.MaxParticipants - (item.Reservations?.Count() ?? 0))
@@ -46,7 +48,7 @@
                     }
                     else if (isMember)
                     {
-                        @if ((item.MaxParticipants - (item.Reservations?.Count() ?? 0)) > 0)
+                        if ((item.MaxParticipants - (item.Reservations?.Count() ?? 0)) > 0)
                         {
                             <form asp-action="Reserve" asp-route-id="@item.SessionId" method="post" class="d-inline">
                                 <button type="submit" class="btn btn-sm btn-success">Reserve</button>
@@ -63,3 +65,47 @@
         }
     </tbody>
 </table>
+
+@if (isMember)
+{
+    <h2>Request Personal Training</h2>
+    <p>
+        <a asp-action="RequestTraining" class="btn btn-primary">Request Personal Training</a>
+    </p>
+
+    <h3>My Personal Training Requests</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Trainer</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.PersonalTrainingRequests != null)
+            {
+                foreach (var request in ViewBag.PersonalTrainingRequests as IEnumerable<FitnessApp.Models.PersonalTrainingRequest>)
+                {
+                    <tr>
+                        <td>@(request.Trainer?.Name ?? "Trainer Not Found")</td>
+                        <td>@request.Date.ToString("f")</td>
+                        <td>
+                            <span class="badge
+                                @(request.Status == "Approved" ? "bg-success" :
+                                  request.Status == "Rejected" ? "bg-danger" : "bg-warning")">
+                                @request.Status
+                            </span>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3" class="text-center">No personal training requests found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

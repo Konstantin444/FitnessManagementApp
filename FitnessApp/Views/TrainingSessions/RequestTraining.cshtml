@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Trainer>
+
+<h1>Request Personal Training</h1>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-warning" role="alert">
+        No trainers are currently available. Please check back later.
+    </div>
+}
+else
+{
+    <p>Select a trainer and request a training session:</p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Trainer Name</th>
+                <th>Specialization</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var trainer in Model)
+            {
+                <tr>
+                    <td>@trainer.Name</td>
+                    <td>
+                        <form method="post" action="/TrainingSessions/RequestTraining">
+                            <input type="hidden" name="trainerId" value="@trainer.Id" />
+                            <label for="date-@trainer.Id">Select Date:</label>
+                            <input type="date" name="date" id="date-@trainer.Id" required class="form-control d-inline-block w-auto" />
+                            <button type="submit" class="btn btn-primary">Request Training</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
