@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace FitnessApp.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
