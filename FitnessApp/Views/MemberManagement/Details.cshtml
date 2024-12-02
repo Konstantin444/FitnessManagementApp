@@ -1,0 +1,48 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityUser
+
+@{
+    ViewData["Title"] = "Member Details";
+    var reservations = ViewBag.Reservations as IEnumerable<FitnessApp.Models.Reservation>;
+}
+
+<h1>Member Details</h1>
+
+<dl class="row">
+    <dt class="col-sm-2">User Name</dt>
+    <dd class="col-sm-10">@Model.UserName</dd>
+
+    <dt class="col-sm-2">Email</dt>
+    <dd class="col-sm-10">@Model.Email</dd>
+</dl>
+
+@if (reservations != null && reservations.Any())
+{
+    <h4>Reservations</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Training Session</th>
+                <th>Trainer</th>
+                <th>Session Date</th>
+                <th>Reservation Made On</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reservation in reservations)
+            {
+                <tr>
+                    <td>@reservation.TrainingSession.Name</td>
+                    <td>@reservation.TrainingSession.Trainer</td>
+                    <td>@reservation.TrainingSession.SessionDateTime.ToString("g")</td>
+                    <td>@reservation.ReservationDateTime.ToString("g")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No reservations found for this member.</p>
+}
+
+<a asp-action="Index" class="btn btn-secondary">Back to Members</a>
