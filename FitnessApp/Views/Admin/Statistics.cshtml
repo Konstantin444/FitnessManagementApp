@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Statistics and Reports";
+}
+
+<h1>Statistics and Reports</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">Total Members</div>
+            <div class="card-body">
+                <h3>@ViewBag.TotalMembers</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">Total Visits</div>
+            <div class="card-body">
+                <h3>@ViewBag.TotalVisits</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>Top Training Sessions</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Trainer</th>
+            <th>Reservations</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var session in ViewBag.PopularSessions)
+        {
+            <tr>
+                <td>@session.Name</td>
+                <td>@session.Trainer</td>
+                <td>@session.Reservations.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>

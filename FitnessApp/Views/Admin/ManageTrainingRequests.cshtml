@@ -1,0 +1,43 @@
+﻿@model IEnumerable<FitnessApp.Models.PersonalTrainingRequest>
+
+<h1>Manage Training Requests</h1>
+
+<form method="get" asp-action="ManageTrainingRequests">
+    <label for="statusFilter">Filter by Status:</label>
+    <select name="statusFilter" id="statusFilter" class="form-control" onchange="this.form.submit()">
+        <option value="All" selected="@(ViewBag.StatusFilter == "All")">All</option>
+        <option value="Pending" selected="@(ViewBag.StatusFilter == "Pending")">Pending</option>
+        <option value="Approved" selected="@(ViewBag.StatusFilter == "Approved")">Approved</option>
+        <option value="Rejected" selected="@(ViewBag.StatusFilter == "Rejected")">Rejected</option>
+    </select>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Member</th>
+            <th>Trainer</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td>@request.Member.UserName</td>
+                <td>@request.Trainer.Name</td>
+                <td>@request.Date.ToString("f")</td>
+                <td>@request.Status</td>
+                <td>
+                    <form method="post" asp-action="UpdateRequestStatus">
+                        <input type="hidden" name="id" value="@request.Id" />
+                        <button type="submit" name="status" value="Approved" class="btn btn-success btn-sm">Approve</button>
+                        <button type="submit" name="status" value="Rejected" class="btn btn-danger btn-sm">Reject</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

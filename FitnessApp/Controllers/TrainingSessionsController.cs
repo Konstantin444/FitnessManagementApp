@@ -307,6 +307,38 @@ namespace FitnessApp.Controllers
             return View(pendingRequests);
         }
 
+        [Authorize(Roles = "Admin")]
+        public class AdminController : Controller
+        {
+            private readonly ApplicationDbContext _context;
 
+            public AdminController(ApplicationDbContext context)
+            {
+                _context = context;
+            }
+
+            // Най-популярните тренировки
+            public async Task<IActionResult> PopularTrainingSessions()
+            {
+                var popularSessions = await _context.TrainingSessions
+                    .Include(t => t.Reservations)
+                    .OrderByDescending(t => t.Reservations.Count)
+                    .Take(10) // Ограничение до топ 10
+                    .ToListAsync();
+
+                return View(popularSessions);
+            }
+
+            // Общ брой членове
+            public async Task<IActionResult> TotalMembers()
+            {
+                var totalMembers = await _context.Users.CountAsync(); // Предполага се, че `Users` е таблицата с потребители
+                ViewBag.TotalMembers = totalMembers;
+                return View();
+            }
+
+            // Общ брой посещения
+
+        }
     }
 }
