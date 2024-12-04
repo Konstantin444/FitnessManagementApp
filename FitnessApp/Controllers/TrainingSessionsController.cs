@@ -143,13 +143,24 @@ namespace FitnessApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var trainingSession = await _context.TrainingSessions.FindAsync(id);
-            if (trainingSession != null)
+            // Fetch the training session and include its reservations
+            var trainingSession = await _context.TrainingSessions
+                .Include(t => t.Reservations) // Include reservations to delete them
+                .FirstOrDefaultAsync(t => t.SessionId == id);
+
+            if (trainingSession == null)
             {
-                _context.TrainingSessions.Remove(trainingSession);
+                return NotFound();
             }
 
+            // Remove associated reservations
+            _context.Reservations.RemoveRange(trainingSession.Reservations);
+
+            // Remove the training session
+            _context.TrainingSessions.Remove(trainingSession);
+
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
