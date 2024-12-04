@@ -1,7 +1,11 @@
-﻿@model FitnessApp.Models.TrainingSession
+﻿@using System.Security.Claims
+@model FitnessApp.Models.TrainingSession
 
 @{
     ViewData["Title"] = "Details";
+    var userId = User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier); // Current logged-in user's ID
+    var isMember = User.IsInRole("Member");
+    var isAdmin = User.IsInRole("Admin");
 }
 
 <h1>Details of Training Session</h1>
@@ -72,6 +76,16 @@ else
 }
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.SessionId" class="btn btn-warning">Edit</a>
+    @if (isAdmin)
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.SessionId" class="btn btn-warning">Edit</a>
+    }
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+
+    @if (isMember && Model.Reservations.Any(r => r.UserId == userId))
+    {
+        <form asp-action="Leave" asp-route-id="@Model?.SessionId" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-danger">Leave Session</button>
+        </form>
+    }
 </div>

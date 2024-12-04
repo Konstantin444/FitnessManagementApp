@@ -168,9 +168,25 @@ namespace FitnessApp.Controllers
             }
 
             var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id);
-            if (user != null)
+            if (user == null)
             {
-                await _userManager.DeleteAsync(user);
+                return NotFound();
+            }
+
+            // Remove associated reservations
+            var userReservations = _context.Reservations.Where(r => r.UserId == id).ToList();
+            if (userReservations.Any())
+            {
+                _context.Reservations.RemoveRange(userReservations);
+                await _context.SaveChangesAsync();
+            }
+
+            // Delete the user
+            var result = await _userManager.DeleteAsync(user);
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Unable to delete user. Please try again.");
+                return View(user);
             }
 
             return RedirectToAction(nameof(Index));

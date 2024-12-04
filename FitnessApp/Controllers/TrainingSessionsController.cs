@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FitnessApp.Data;
 using FitnessApp.Models;
+using System.Security.Claims;
 
 namespace FitnessApp.Controllers
 {
@@ -175,14 +176,13 @@ namespace FitnessApp.Controllers
 
             if (trainingSession == null)
             {
-                return NotFound();
+                return NotFound("The selected training session does not exist.");
             }
 
             // Check if there are available slots
             if (trainingSession.MaxParticipants <= trainingSession.Reservations.Count)
             {
-                ModelState.AddModelError("", "No spots available for this session.");
-                return RedirectToAction(nameof(Index));
+                return BadRequest("No spots available for this session.");
             }
 
             // Check if the user has already reserved a spot
@@ -192,8 +192,7 @@ namespace FitnessApp.Controllers
 
             if (existingReservation != null)
             {
-                ModelState.AddModelError("", "You have already reserved a spot for this session.");
-                return RedirectToAction(nameof(Index));
+                return BadRequest("You have already reserved a spot for this session.");
             }
 
             // Create a new reservation
@@ -207,7 +206,27 @@ namespace FitnessApp.Controllers
             _context.Reservations.Add(reservation);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return Ok();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Member")]
+        public async Task<IActionResult> Leave(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var reservation = await _context.Reservations
+                .FirstOrDefaultAsync(r => r.UserId == userId && r.TrainingSessionId == id);
+
+            if (reservation == null)
+            {
+                return BadRequest("You are not registered for this session.");
+            }
+
+            _context.Reservations.Remove(reservation);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Details", new { id });
         }
 
         private bool TrainingSessionExists(int id)
