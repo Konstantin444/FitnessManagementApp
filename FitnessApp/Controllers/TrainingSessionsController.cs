@@ -334,27 +334,26 @@ namespace FitnessApp.Controllers
                 _context = context;
             }
 
-            // Най-популярните тренировки
+            // Most popular training sessions
             public async Task<IActionResult> PopularTrainingSessions()
             {
                 var popularSessions = await _context.TrainingSessions
                     .Include(t => t.Reservations)
                     .OrderByDescending(t => t.Reservations.Count)
-                    .Take(10) // Ограничение до топ 10
+                    .Take(10) // Top 10
                     .ToListAsync();
 
                 return View(popularSessions);
             }
 
-            // Общ брой членове
+            // Total Members
             public async Task<IActionResult> TotalMembers()
             {
-                var totalMembers = await _context.Users.CountAsync(); // Предполага се, че `Users` е таблицата с потребители
+                var totalMembers = await _context.Users.CountAsync();
                 ViewBag.TotalMembers = totalMembers;
                 return View();
             }
 
-            // Общ брой посещения
 
         }
     }
