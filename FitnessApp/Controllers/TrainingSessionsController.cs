@@ -158,13 +158,24 @@ namespace FitnessApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var trainingSession = await _context.TrainingSessions.FindAsync(id);
-            if (trainingSession != null)
+            // Fetch the training session and include its reservations
+            var trainingSession = await _context.TrainingSessions
+                .Include(t => t.Reservations) // Include reservations to delete them
+                .FirstOrDefaultAsync(t => t.SessionId == id);
+
+            if (trainingSession == null)
             {
-                _context.TrainingSessions.Remove(trainingSession);
+                return NotFound();
             }
 
+            // Remove associated reservations
+            _context.Reservations.RemoveRange(trainingSession.Reservations);
+
+            // Remove the training session
+            _context.TrainingSessions.Remove(trainingSession);
+
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -179,13 +190,12 @@ namespace FitnessApp.Controllers
 
             if (trainingSession == null)
             {
-                return NotFound();
+                return NotFound("The selected training session does not exist.");
             }
 
             if (trainingSession.MaxParticipants <= trainingSession.Reservations.Count)
             {
-                ModelState.AddModelError("", "No spots available for this session.");
-                return RedirectToAction(nameof(Index));
+                return BadRequest("No spots available for this session.");
             }
 
             var userId = User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
@@ -194,8 +204,7 @@ namespace FitnessApp.Controllers
 
             if (existingReservation != null)
             {
-                ModelState.AddModelError("", "You have already reserved a spot for this session.");
-                return RedirectToAction(nameof(Index));
+                return BadRequest("You have already reserved a spot for this session.");
             }
 
             var reservation = new Reservation
@@ -208,7 +217,27 @@ namespace FitnessApp.Controllers
             _context.Reservations.Add(reservation);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return Ok();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Member")]
+        public async Task<IActionResult> Leave(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var reservation = await _context.Reservations
+                .FirstOrDefaultAsync(r => r.UserId == userId && r.TrainingSessionId == id);
+
+            if (reservation == null)
+            {
+                return BadRequest("You are not registered for this session.");
+            }
+
+            _context.Reservations.Remove(reservation);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Details", new { id });
         }
 
         // GET: Request Personal Training
