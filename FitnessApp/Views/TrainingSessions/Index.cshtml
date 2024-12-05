@@ -11,9 +11,9 @@
 
 @if (isAdmin)
 {
-    <p>
-        <a asp-action="Create" class="btn btn-primary">Create New Session</a>
-    </p>
+        <p>
+            <a asp-action="Create" class="btn btn-primary">Create New Session</a>
+        </p>
 }
 
 <table class="table table-striped table-bordered">
@@ -30,39 +30,39 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.Trainer)</td>
-                <td>@item.SessionDateTime.ToString("f")</td>
-                <td>@item.MaxParticipants</td>
-                <td>
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@(item.Trainer?.Name ?? "No Trainer")</td> <!-- Handles null Trainer -->
+                    <td>@item.SessionDateTime.ToString("f")</td>
+                    <td>@item.MaxParticipants</td>
+                    <td>
                     @(item.MaxParticipants - (item.Reservations?.Count() ?? 0))
-                </td>
-                <td>
+                    </td>
+                    <td>
                     @if (isAdmin)
                     {
-                        <a asp-action="Edit" asp-route-id="@item.SessionId" class="btn btn-sm btn-warning">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.SessionId" class="btn btn-sm btn-info">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.SessionId" class="btn btn-sm btn-danger">Delete</a>
+                                <a asp-action="Edit" asp-route-id="@item.SessionId" class="btn btn-sm btn-warning">Edit</a>
+                                <a asp-action="Details" asp-route-id="@item.SessionId" class="btn btn-sm btn-info">Details</a>
+                                <a asp-action="Delete" asp-route-id="@item.SessionId" class="btn btn-sm btn-danger">Delete</a>
                     }
                     else if (isMember)
                     {
-                        <button class="btn btn-sm btn-primary"
-                                data-bs-toggle="modal"
-                                data-bs-target="#reserveModal"
-                                data-session-id="@item.SessionId"
-                                data-session-name="@item.Name"
-                                data-session-trainer="@item.Trainer"
-                                data-session-date="@item.SessionDateTime.ToString("g")"
-                                data-max-participants="@item.MaxParticipants"
-                                data-available-slots="@(item.MaxParticipants - (item.Reservations?.Count() ?? 0))"
-                                data-is-user-reserved="@item.Reservations.Any(r => r.UserId == User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier))">
-                            Reserve
-                        </button>
-                        <a asp-action="Details" asp-route-id="@item.SessionId" class="btn btn-sm btn-info">Details</a>
+                                <button class="btn btn-sm btn-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#reserveModal"
+                                        data-session-id="@item.SessionId"
+                                        data-session-name="@item.Name"
+                                        data-session-trainer="@(item.Trainer?.Name ?? "No Trainer")"
+                                        data-session-date="@item.SessionDateTime.ToString("g")"
+                                        data-max-participants="@item.MaxParticipants"
+                                        data-available-slots="@(item.MaxParticipants - (item.Reservations?.Count() ?? 0))"
+                                        data-is-user-reserved="@item.Reservations.Any(r => r.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))">
+                                    Reserve
+                                </button>
+                                <a asp-action="Details" asp-route-id="@item.SessionId" class="btn btn-sm btn-info">Details</a>
                     }
-                </td>
-            </tr>
+                    </td>
+                </tr>
         }
     </tbody>
 </table>
@@ -96,46 +96,46 @@
 
 @if (isMember)
 {
-    <h2>Request Personal Training</h2>
-    <p>
-        <a asp-action="RequestTraining" class="btn btn-primary">Request Personal Training</a>
-    </p>
+        <h2>Request Personal Training</h2>
+        <p>
+            <a asp-action="RequestTraining" class="btn btn-primary">Request Personal Training</a>
+        </p>
 
-    <h3>My Personal Training Requests</h3>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Trainer</th>
-                <th>Date</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (ViewBag.PersonalTrainingRequests != null)
-            {
-                foreach (var request in ViewBag.PersonalTrainingRequests as IEnumerable<FitnessApp.Models.PersonalTrainingRequest>)
+    @if (ViewBag.PersonalTrainingRequests != null &&
+       ((IEnumerable<FitnessApp.Models.PersonalTrainingRequest>)ViewBag.PersonalTrainingRequests).Any())
+    {
+                <h3>My Personal Training Requests</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Trainer</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                @foreach (var request in ViewBag.PersonalTrainingRequests as IEnumerable<FitnessApp.Models.PersonalTrainingRequest>)
                 {
-                    <tr>
-                        <td>@(request.Trainer?.Name ?? "Trainer Not Found")</td>
-                        <td>@request.Date.ToString("f")</td>
-                        <td>
-                            <span class="badge
+                                <tr>
+                                    <td>@(request.Trainer?.Name ?? "Trainer Not Found")</td>
+                                    <td>@request.Date.ToString("f")</td>
+                                    <td>
+                                        <span class="badge
                                 @(request.Status == "Approved" ? "bg-success" :
                                   request.Status == "Rejected" ? "bg-danger" : "bg-warning")">
                                 @request.Status
-                            </span>
-                        </td>
-                    </tr>
+                                        </span>
+                                    </td>
+                                </tr>
                 }
-            }
-            else
-            {
-                <tr>
-                    <td colspan="3" class="text-center">No personal training requests found.</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                    </tbody>
+                </table>
+    }
+    else
+    {
+                <h3>My Personal Training Requests</h3>
+                <p class="text-center">No personal training requests found.</p>
+    }
 }
 
 <script src="/js/reserve-modal.js"></script>

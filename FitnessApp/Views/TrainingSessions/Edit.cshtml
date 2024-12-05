@@ -19,9 +19,9 @@
             </div>
 
             <div class="form-group mb-3">
-                <label asp-for="Trainer" class="form-label">Trainer Name</label>
-                <input asp-for="Trainer" class="form-control" />
-                <span asp-validation-for="Trainer" class="text-danger"></span>
+                <label asp-for="TrainerId" class="form-label">Trainer</label>
+                <select asp-for="TrainerId" class="form-control" asp-items="ViewBag.TrainerId"></select>
+                <span asp-validation-for="TrainerId" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">

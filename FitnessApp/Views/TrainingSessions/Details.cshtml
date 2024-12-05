@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "Details";
-    var userId = User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier); // Current logged-in user's ID
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Current logged-in user's ID
     var isMember = User.IsInRole("Member");
     var isAdmin = User.IsInRole("Admin");
 }
@@ -21,10 +21,10 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Trainer)
+            Trainer
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Trainer)
+            @(Model.Trainer?.Name ?? "No Trainer Assigned")
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SessionDateTime)

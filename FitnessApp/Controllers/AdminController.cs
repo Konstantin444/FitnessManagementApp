@@ -23,12 +23,13 @@ public class AdminController : Controller
         var totalRequests = await _context.PersonalTrainingRequests.CountAsync();
         var totalVisits = await _context.Reservations.CountAsync();
 
-        // Get most popular training sessions
         var popularSessions = await _context.TrainingSessions
             .Include(s => s.Reservations)
+            .Include(s => s.Trainer)
             .OrderByDescending(s => s.Reservations.Count)
             .Take(3) // Top 3 sessions
             .ToListAsync();
+
 
         // Get all trainers
         var trainers = await _context.Trainers.ToListAsync();

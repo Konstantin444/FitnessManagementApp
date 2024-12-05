@@ -20,3 +20,13 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.nav-item.dropdown .dropdown-toggle {
+    margin-left: -8px; 
+    display: inline-block;
+    width: 16px;
+}

@@ -21,6 +21,16 @@ namespace FitnessApp.Data
         public DbSet<PersonalTrainingRequest> PersonalTrainingRequests { get; set; }
         public DbSet<Trainer> Trainers { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
+            // Configure TrainerId as nullable with SetNull behavior
+            modelBuilder.Entity<TrainingSession>()
+                .HasOne(ts => ts.Trainer)
+                .WithMany(t => t.TrainingSessions)
+                .HasForeignKey(ts => ts.TrainerId)
+                .OnDelete(DeleteBehavior.SetNull);
+        }
     }
 }

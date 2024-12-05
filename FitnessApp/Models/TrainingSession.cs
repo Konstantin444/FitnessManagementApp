@@ -12,9 +12,10 @@ namespace FitnessApp.Models
         [StringLength(100, ErrorMessage = "The session name cannot exceed 100 characters.")]
         public string Name { get; set; } // Name of the session (e.g., "Yoga")
 
-        [Required(ErrorMessage = "Trainer name is required.")]
-        [StringLength(100, ErrorMessage = "The trainer name cannot exceed 100 characters.")]
-        public string Trainer { get; set; } // Name of the trainer conducting the session
+        public int? TrainerId { get; set; }
+
+        [ForeignKey("TrainerId")]
+        public Trainer? Trainer { get; set; } // Name of the trainer conducting the session
 
         [Required(ErrorMessage = "Date and time are required.")]
         [Display(Name = "Session Date and Time")]

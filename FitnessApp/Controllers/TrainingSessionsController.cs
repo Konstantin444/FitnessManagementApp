@@ -22,7 +22,10 @@ namespace FitnessApp.Controllers
         // GET: TrainingSessions
         public async Task<IActionResult> Index()
         {
-            var trainingSessions = await _context.TrainingSessions.Include(t => t.Reservations).ToListAsync();
+            var trainingSessions = await _context.TrainingSessions
+                .Include(t => t.Reservations)
+                .Include(t => t.Trainer) // Include Trainer
+                .ToListAsync();
 
             if (User.IsInRole("Member"))
             {
@@ -38,7 +41,6 @@ namespace FitnessApp.Controllers
             return View(trainingSessions);
         }
 
-
         // GET: TrainingSessions/Details/5
         [Authorize]
         public async Task<IActionResult> Details(int? id)
@@ -51,6 +53,7 @@ namespace FitnessApp.Controllers
             var trainingSession = await _context.TrainingSessions
                 .Include(t => t.Reservations)
                 .ThenInclude(r => r.User)
+                .Include(t => t.Trainer) // Include Trainer
                 .FirstOrDefaultAsync(m => m.SessionId == id);
 
             if (trainingSession == null)
@@ -65,6 +68,7 @@ namespace FitnessApp.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
+            ViewData["TrainerId"] = new SelectList(_context.Trainers, "Id", "Name");
             return View();
         }
 
@@ -72,14 +76,21 @@ namespace FitnessApp.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SessionId,Name,Trainer,SessionDateTime,MaxParticipants")] TrainingSession trainingSession)
+        public async Task<IActionResult> Create([Bind("SessionId,Name,TrainerId,SessionDateTime,MaxParticipants")] TrainingSession trainingSession)
         {
+            // Check if the date is in the past
+            if (trainingSession.SessionDateTime.Date < DateTime.Now.Date)
+            {
+                ModelState.AddModelError("SessionDateTime", "The session date cannot be in the past.");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(trainingSession);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["TrainerId"] = new SelectList(_context.Trainers, "Id", "Name", trainingSession.TrainerId);
             return View(trainingSession);
         }
 
@@ -97,6 +108,8 @@ namespace FitnessApp.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["TrainerId"] = new SelectList(_context.Trainers, "Id", "Name", trainingSession.TrainerId); // Populate trainers for dropdown
             return View(trainingSession);
         }
 
@@ -104,11 +117,17 @@ namespace FitnessApp.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SessionId,Name,Trainer,SessionDateTime,MaxParticipants")] TrainingSession trainingSession)
+        public async Task<IActionResult> Edit(int id, [Bind("SessionId,Name,TrainerId,SessionDateTime,MaxParticipants")] TrainingSession trainingSession)
         {
             if (id != trainingSession.SessionId)
             {
                 return NotFound();
+            }
+
+            // Check if the date is in the past
+            if (trainingSession.SessionDateTime.Date < DateTime.Now.Date)
+            {
+                ModelState.AddModelError("SessionDateTime", "The session date cannot be in the past.");
             }
 
             if (ModelState.IsValid)
@@ -131,6 +150,7 @@ namespace FitnessApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["TrainerId"] = new SelectList(_context.Trainers, "Id", "Name", trainingSession.TrainerId);
             return View(trainingSession);
         }
 
@@ -143,7 +163,10 @@ namespace FitnessApp.Controllers
                 return NotFound();
             }
 
-            var trainingSession = await _context.TrainingSessions.FirstOrDefaultAsync(m => m.SessionId == id);
+            var trainingSession = await _context.TrainingSessions
+                .Include(t => t.Trainer) // Include Trainer for confirmation
+                .FirstOrDefaultAsync(m => m.SessionId == id);
+
             if (trainingSession == null)
             {
                 return NotFound();
@@ -158,9 +181,8 @@ namespace FitnessApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            // Fetch the training session and include its reservations
             var trainingSession = await _context.TrainingSessions
-                .Include(t => t.Reservations) // Include reservations to delete them
+                .Include(t => t.Reservations)
                 .FirstOrDefaultAsync(t => t.SessionId == id);
 
             if (trainingSession == null)
@@ -168,18 +190,13 @@ namespace FitnessApp.Controllers
                 return NotFound();
             }
 
-            // Remove associated reservations
-            _context.Reservations.RemoveRange(trainingSession.Reservations);
-
-            // Remove the training session
-            _context.TrainingSessions.Remove(trainingSession);
-
+            _context.Reservations.RemoveRange(trainingSession.Reservations); // Remove reservations
+            _context.TrainingSessions.Remove(trainingSession); // Remove the session
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
 
-        // POST: TrainingSessions/Reserve/5 (Member Only)
         [HttpPost]
         [Authorize(Roles = "Member")]
         public async Task<IActionResult> Reserve(int id)
@@ -286,6 +303,7 @@ namespace FitnessApp.Controllers
         }
 
 
+
         [HttpGet]
         [Authorize(Roles = "Member")]
         public async Task<IActionResult> CreateTrainingRequest()
@@ -298,9 +316,6 @@ namespace FitnessApp.Controllers
 
             return View();
         }
-
-
-
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -382,8 +397,6 @@ namespace FitnessApp.Controllers
                 ViewBag.TotalMembers = totalMembers;
                 return View();
             }
-
-
         }
     }
 }
