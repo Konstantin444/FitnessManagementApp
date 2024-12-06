@@ -1,8 +1,39 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="banner">
+    <h1>Fitness of the Year for 12 Consecutive Years</h1>
 </div>
+
+<div class="container my-5">
+    <div class="row text-center">
+        <!-- Left Box -->
+        <div class="col-md-6 mb-4">
+            <div class="info-box" id="box-left">
+                <h3>Pulse Gold</h3>
+                <p>89 BGN</p>
+                <p>Unlimited access to fitness, SPA, and group activities.</p>
+                <a class="btn btn-primary" asp-controller="TrainingSessions" asp-action="Index">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Right Box -->
+        <div class="col-md-6 mb-4">
+            <div class="info-box" id="box-right">
+                <h3>Get Started</h3>
+                <p>Sign up today and start your fitness journey.</p>
+                <p>Access group sessions and track your progress.</p>
+                <a class="btn btn-primary" asp-area="Identity" asp-controller="Account" asp-action="Login">Get Started</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <script src="/js/home.js"></script>
+}

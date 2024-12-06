@@ -1,32 +1,130 @@
+/* Base Styles */
 html {
-  font-size: 14px;
+    height: 100%; /* Ensure the root element spans the full height */
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    color: #333; /* Neutral text color */
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* Body & Global */
 body {
-  margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure body spans the full viewport height */
+    margin: 0; /* Remove default margin */
+    background-color: #f5f5f5; /* Light gray background */
+    color: #333; /* Neutral text color */
 }
+
+/* Main Content */
+main {
+    flex: 1; /* Allow the main content to grow and push the footer down */
+}
+
+/* Navbar */
+.navbar {
+    background-color: #ffffff; /* White background */
+    border-bottom: 2px solid #008080; /* Primary accent */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.navbar-brand {
+    color: #008080; /* Primary color */
+    font-weight: 700;
+    font-size: 1.25rem; /* Larger brand text */
+}
+
+    .navbar-brand:hover {
+        color: #FFA500; /* Secondary color on hover */
+    }
+
+.nav-link {
+    color: #008080; /* Primary color for links */
+    font-weight: 500;
+}
+
+    .nav-link:hover {
+        color: #FFA500; /* Secondary color on hover */
+    }
 
 .nav-item.dropdown:hover .dropdown-menu {
     display: block;
 }
 
-.nav-item.dropdown .dropdown-toggle {
-    margin-left: -8px; 
-    display: inline-block;
-    width: 16px;
+.dropdown-menu {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons */
+.btn {
+    font-weight: 500;
+    border-radius: 6px;
+}
+
+.btn-primary {
+    background-color: #008080; /* Primary color */
+    border-color: #008080;
+}
+
+    .btn-primary:hover {
+        background-color: #006666; /* Darker primary */
+        border-color: #006666;
+    }
+
+.btn-secondary {
+    background-color: #FFA500; /* Secondary color */
+    border-color: #FFA500;
+}
+
+    .btn-secondary:hover {
+        background-color: #cc8400; /* Darker secondary */
+        border-color: #cc8400;
+    }
+
+/* Forms */
+.form-control {
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+    .form-control:focus {
+        border-color: #008080; /* Primary color focus */
+        box-shadow: 0 0 0 0.2rem rgba(0, 128, 128, 0.25); /* Light shadow */
+    }
+
+/* Footer */
+footer {
+    background-color: #ffffff;
+    color: #008080;
+    border-top: 2px solid #008080; /* Primary accent */
+    padding: 15px 0;
+    text-align: center;
+    margin-top: auto; /* Ensure footer stays at the bottom */
+}
+
+    /* Links inside footer */
+    footer a {
+        color: #FFA500; /* Secondary color */
+        text-decoration: none;
+    }
+
+        footer a:hover {
+            color: #cc8400; /* Darker secondary */
+        }
+
+/* Utility Classes */
+.text-primary {
+    color: #008080 !important;
+}
+
+.text-secondary {
+    color: #FFA500 !important;
 }

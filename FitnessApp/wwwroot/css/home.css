@@ -1,0 +1,123 @@
+﻿/* Banner */
+.banner {
+    background: url('/path-to-your-banner-image.jpg') no-repeat center center;
+    background-size: cover;
+    height: 300px; /* Adjust height as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+    .banner h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 0;
+        padding: 0 1rem;
+    }
+
+/* Info Boxes Container */
+.info-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+/* Info Boxes */
+.info-box {
+    opacity: 0;
+    transform: translateX(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+    border: 1px solid #e0e0e0; /* Light border */
+    border-radius: 10px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light gray background */
+    padding: 20px; /* Space inside the box */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+    .info-box:nth-child(even) {
+        transform: translateX(100%); /* Right off-screen for even boxes */
+    }
+
+    /* Hover Effect */
+    .info-box:hover {
+        transform: scale(1.15); /* Grow by 4% */
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+        border-color: #008080; /* Accent border */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Headings Inside the Box */
+    .info-box h3 {
+        font-size: 1.5rem; /* Slightly larger font */
+        color: #008080; /* Primary brand color */
+        margin-bottom: 15px; /* Spacing under the heading */
+    }
+
+    /* Buttons Inside the Box */
+    .info-box .btn {
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+/* Trigger the animation */
+.slide-in-left {
+    animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.slide-in-right {
+    animation: slideInRight 0.8s ease-out forwards;
+}
+
+/* Keyframes for Left Animation */
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Keyframes for Right Animation */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #ff7e5f;
+    color: white;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: #e76c4f;
+        color: white;
+    }
+
+.btn-secondary {
+    background-color: #feb47b;
+    color: white;
+    border: none;
+}
+
+    .btn-secondary:hover {
+        background-color: #fda16f;
+        color: white;
+    }
