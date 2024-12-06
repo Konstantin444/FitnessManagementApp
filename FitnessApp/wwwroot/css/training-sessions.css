@@ -4,28 +4,31 @@
     color: white;
     padding: 50px 0;
     text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
     .hero-section h1 {
-        font-size: 2.5rem;
+        font-size: 3rem;
         font-weight: bold;
         margin-bottom: 1rem;
     }
 
     .hero-section p {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
         margin-bottom: 2rem;
+        color: #fdfdfd; /* Slightly lighter for readability */
     }
 
     .hero-section .btn {
-        font-size: 1rem;
-        padding: 10px 20px;
+        font-size: 1.2rem;
+        padding: 12px 30px;
+        border-radius: 8px;
     }
 
 /* Sessions Section */
 .sessions-section {
     background-color: #f9f9f9; /* Light background */
-    padding: 2rem 0;
+    padding: 2.5rem 0;
 }
 
 .session-card {
@@ -38,43 +41,166 @@
 }
 
     .session-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        transform: translateY(-8px);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
     }
 
 .session-title {
     color: #008080; /* Primary color */
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     margin-bottom: 0.5rem;
+    font-weight: 600;
 }
 
 .session-card p {
     color: #555;
-    font-size: 0.95rem;
-    margin: 0.5rem 0;
+    font-size: 1rem;
+    margin: 0.8rem 0;
 }
 
 .card-actions {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
     .card-actions .btn {
-        margin-right: 5px;
+        margin-right: 10px;
+        border-radius: 6px;
+        font-size: 0.95rem;
     }
+
+/* Personal Training Section */
+.personal-training-section {
+    background: none; /* Subtle gradient for depth */
+    padding: 3rem 1rem;
+    border-radius: 15px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1); /* Soft shadow to blend in */
+    margin-top: 3rem; /* Space between sections */
+}
+    .personal-training-section .d-flex {
+        align-items: center;
+        justify-content: center; /* Keep title and button aligned to the left */
+        margin-bottom: 2rem;
+    }
+
+    .personal-training-section h2 {
+        color: #008080; /* Primary brand color */
+        font-size: 2rem;
+        font-weight: bold;
+        margin-right: 1rem; /* Minimal spacing between title and button */
+    }
+
+    .personal-training-section .btn {
+        font-size: 1rem;
+        padding: 8px 15px; /* Slightly smaller button for better proximity */
+        border-radius: 6px;
+        background-color: #008080;
+        color: white;
+        border: none;
+    }
+
+        .personal-training-section .btn:hover {
+            background-color: #006666;
+        }
+
+
+    .personal-training-section h2 {
+        color: #008080; /* Primary brand color */
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+    }
+
+    .personal-training-section p {
+        color: #666;
+        margin-bottom: 2rem;
+        font-size: 1rem;
+        font-style: italic; /* Adds a subtle emphasis */
+    }
+
+    .personal-training-section .btn {
+        background-color: #008080;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+        .personal-training-section .btn:hover {
+            background-color: #006666;
+            color: white;
+        }
+
+    .personal-training-section table {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 900px;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for table */
+    }
+
+        .personal-training-section table thead {
+            background-color: #008080;
+            color: white;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .personal-training-section table th,
+        .personal-training-section table td {
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .personal-training-section table tbody tr:hover {
+            background-color: #f5f5f5; /* Slight hover effect for rows */
+        }
+
+    .personal-training-section .badge {
+        font-size: 0.95rem;
+        padding: 8px 15px;
+        border-radius: 20px;
+        text-transform: uppercase;
+    }
+
+.badge.bg-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.badge.bg-warning {
+    background-color: #ffc107;
+    color: black;
+}
+
+.badge.bg-danger {
+    background-color: #dc3545;
+    color: white;
+}
 
 /* Modal */
 .modal-content {
-    border-radius: 10px;
+    border-radius: 12px;
+    padding: 1.5rem;
 }
 
 .modal-header {
     background-color: #008080; /* Primary color */
     color: white;
+    border-bottom: none;
 }
 
 .modal-footer .btn-primary {
     background-color: #008080;
     border-color: #008080;
+    padding: 10px 20px;
+    border-radius: 8px;
 }
 
     .modal-footer .btn-primary:hover {
@@ -84,10 +210,18 @@
 /* Responsive Adjustments */
 @media (min-width: 768px) {
     .hero-section h1 {
-        font-size: 3rem;
+        font-size: 3.2rem;
     }
 
     .hero-section p {
-        font-size: 1.5rem;
+        font-size: 1.7rem;
+    }
+
+    .personal-training-section h2 {
+        font-size: 2.5rem;
+    }
+
+    .session-title {
+        font-size: 2rem;
     }
 }

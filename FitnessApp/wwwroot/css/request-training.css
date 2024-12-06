@@ -1,20 +1,20 @@
-﻿/* Personal Training Requests Section */
-.personal-requests-section {
+﻿/* Request Training Section */
+.request-training-section {
     padding: 3rem 1rem 5rem; /* Proper spacing */
     background: linear-gradient(120deg, rgba(0, 128, 128, 0.2) 0%, rgba(254, 180, 123, 0.2) 100%);
     min-height: calc(100vh - 60px); /* Full-page height minus header/footer */
 }
 
-    .personal-requests-section h2 {
+    .request-training-section h1 {
         font-size: 2.5rem;
         font-weight: bold;
         color: #008080; /* Primary brand color */
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem;
     }
 
-    .personal-requests-section p {
+    .request-training-section .subheading {
         font-size: 1.2rem;
-        color: #666; /* Subtle text color */
+        color: #666;
         margin-bottom: 2rem;
     }
 
@@ -23,7 +23,7 @@
     background-color: white;
     border-radius: 10px;
     padding: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .table {
@@ -33,7 +33,7 @@
     .table thead {
         background-color: #008080; /* Primary brand color */
         color: white;
-        border-radius: 10px 10px 0 0; /* Rounded top corners */
+        border-radius: 10px 10px 0 0;
     }
 
 .table-hover tbody tr:hover {
@@ -44,32 +44,46 @@
     border: 1px solid #ddd; /* Subtle border */
 }
 
-/* Badge Styling */
-.badge {
-    font-size: 0.9rem;
-    padding: 0.4em 0.8em;
-    border-radius: 10px;
+/* Form Styling */
+form .form-control {
+    width: auto;
+    display: inline-block;
+    border-radius: 6px;
+    margin-right: 10px;
 }
 
-/* Alert Styling */
-.alert-info {
-    background-color: #f0f8ff; /* Soft blue */
-    color: #008080; /* Primary brand color */
-    border: 1px solid #008080;
-    border-radius: 10px;
+form .btn-primary {
+    background-color: #008080;
+    border-color: #008080;
+    color: white;
+    font-size: 0.9rem;
+    padding: 0.5rem 1.5rem;
 }
+
+    form .btn-primary:hover {
+        background-color: #006666;
+        border-color: #006666;
+    }
 
 /* Back Button Styling */
-.d-flex .btn-secondary {
+.text-center .btn-secondary {
     background-color: #feb47b;
     border-color: #feb47b;
     color: white;
     padding: 0.6rem 2rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 600;
 }
 
-    .d-flex .btn-secondary:hover {
+    .text-center .btn-secondary:hover {
         background-color: #fda16f;
         border-color: #fda16f;
     }
+
+/* Alert Styling */
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border-radius: 10px;
+    font-size: 1.1rem;
+}

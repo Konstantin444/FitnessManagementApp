@@ -7,16 +7,64 @@
     var isMember = User.IsInRole("Member");
 }
 
-<section class="hero-section">
-    <div class="container text-center">
-        <h1>Explore Our Training Sessions</h1>
-        <p>Find a session that fits your schedule and join now!</p>
+<section class="hero-section text-center">
+    <div class="container">
+        <h1 class="hero-title">Explore Our Training Sessions</h1>
+        <p class="hero-description">Find a session that fits your schedule and join today!</p>
         @if (isAdmin)
         {
-            <a asp-action="Create" class="btn btn-primary">Create New Session</a>
+            <a asp-action="Create" class="btn btn-primary hero-btn">Create New Session</a>
         }
     </div>
 </section>
+
+@if (isMember)
+{
+    <section class="personal-training-section">
+        @if (isMember)
+        {
+            <div class="d-flex align-items-center mb-3">
+                <h2 class="mb-0 me-3">Request Personal Training</h2>
+                <a asp-action="RequestTraining" class="btn btn-primary">Request Personal Training</a>
+            </div>
+
+            @if (ViewBag.PersonalTrainingRequests != null &&
+           ((IEnumerable<FitnessApp.Models.PersonalTrainingRequest>)ViewBag.PersonalTrainingRequests).Any())
+            {
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Trainer</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var request in ViewBag.PersonalTrainingRequests as IEnumerable<FitnessApp.Models.PersonalTrainingRequest>)
+                        {
+                            <tr>
+                                <td>@(request.Trainer?.Name ?? "Trainer Not Found")</td>
+                                <td>@request.Date.ToString("f")</td>
+                                <td>
+                                    <span class="badge
+                                    @(request.Status == "Approved" ? "bg-success" :
+                                      request.Status == "Rejected" ? "bg-danger" : "bg-warning")">
+                                        @request.Status
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <h3>My Personal Training Requests</h3>
+                <p class="text-center">No personal training requests found.</p>
+            }
+        }
+    </section>
+}
 
 <section class="sessions-section">
     <div class="container">
@@ -58,6 +106,8 @@
         </div>
     </div>
 </section>
+
+
 
 <!-- Reserve Modal -->
 <div class="modal fade" id="reserveModal" tabindex="-1" aria-labelledby="reserveModalLabel" aria-hidden="true">
