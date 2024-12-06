@@ -1,0 +1,70 @@
+﻿/* Delete Session Section */
+.delete-session-section {
+    padding: 3rem 1rem;
+    background: linear-gradient(120deg, rgba(0, 128, 128, 0.2) 0%, rgba(254, 180, 123, 0.2) 100%);
+    min-height: calc(100vh - 60px); /* Ensure footer positioning */
+}
+
+/* Card Styles */
+.card {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #d9534f; /* Red for delete confirmation */
+}
+
+/* Buttons */
+.btn {
+    font-weight: 500;
+    border-radius: 6px;
+}
+
+.btn-danger {
+    background-color: #d9534f;
+    border-color: #d9534f;
+    color: white;
+    padding: 0.6rem 1.5rem;
+}
+
+    .btn-danger:hover {
+        background-color: #c9302c;
+        border-color: #c9302c;
+    }
+
+.btn-secondary {
+    background-color: #feb47b;
+    border-color: #feb47b;
+    color: white;
+    padding: 0.6rem 1.5rem;
+}
+
+    .btn-secondary:hover {
+        background-color: #fda16f;
+        border-color: #fda16f;
+    }
+
+/* Footer Alignment Fix */
+footer {
+    margin-top: auto; /* Push the footer to the bottom */
+    width: 100%;
+    background-color: #f8f9fa;
+    padding: 1rem 0;
+    border-top: 2px solid #008080;
+    text-align: center;
+}
+
+/* Global Layout Fixes */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body fills the viewport height */
+}
+
+main {
+    flex: 1; /* Main content takes up the remaining space */
+}

@@ -29,6 +29,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="TrainingSessions" asp-action="Index">Training Sessions</a>
                         </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark" href="@Url.Action("Dashboard", "Admin")" id="adminDropdownLink" style="display: inline-block;">Admin Dashboard</a>
+                                <a class="nav-link dropdown-toggle text-dark" href="#" id="adminDropdownToggle" role="button" data-bs-toggle="dropdown" style="display: inline-block;" aria-expanded="false"></a>
+                                <ul class="dropdown-menu" aria-labelledby="adminDropdownToggle">
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="MemberManagement" asp-action="Index">Manage Members</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="ManageTrainingRequests">Manage Training Requests</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

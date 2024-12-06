@@ -1,0 +1,79 @@
+﻿/* Details Section */
+.details-session-section {
+    padding: 3rem 1rem;
+    background: linear-gradient(120deg, rgba(0, 128, 128, 0.2) 0%, rgba(254, 180, 123, 0.2) 100%);
+    min-height: calc(100vh - 60px); /* Ensure footer positioning */
+}
+
+/* Card Styles */
+.card {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Table Styles */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 128, 128, 0.1); /* Highlight row on hover */
+}
+
+/* Buttons */
+.btn {
+    font-weight: 500;
+    border-radius: 6px;
+}
+
+.btn-secondary {
+    background-color: #feb47b;
+    border-color: #feb47b;
+    color: white;
+}
+
+    .btn-secondary:hover {
+        background-color: #fda16f;
+        border-color: #fda16f;
+    }
+
+.btn-warning {
+    background-color: #ffcc00;
+    border-color: #ffcc00;
+    color: white;
+}
+
+    .btn-warning:hover {
+        background-color: #e6b800;
+        border-color: #e6b800;
+    }
+
+.btn-danger {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+    color: white;
+}
+
+    .btn-danger:hover {
+        background-color: #c0392b;
+        border-color: #c0392b;
+    }
+
+/* Alert Styles */
+.alert {
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+}
+
+/* Footer Alignment Fix */
+footer {
+    margin-top: auto;
+    width: 100%;
+    background-color: #f8f9fa;
+    padding: 1rem 0;
+    border-top: 2px solid #008080;
+    text-align: center;
+}

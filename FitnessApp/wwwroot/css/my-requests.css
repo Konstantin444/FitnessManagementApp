@@ -1,0 +1,56 @@
+﻿/* Styling for Personal Training Requests page */
+
+/* Title */
+h2 {
+    font-size: 2rem;
+    color: #008080; /* Primary brand color */
+    font-weight: bold;
+}
+
+/* Table Enhancements */
+.table {
+    border-radius: 8px;
+    margin-top: 2rem;
+}
+
+    .table th, .table td {
+        text-align: center; /* Center-align text in the table */
+    }
+
+/* Responsive Table */
+.table-responsive {
+    max-width: 100%;
+    overflow-x: auto; /* Allows horizontal scrolling on smaller screens */
+}
+
+/* Badge Styling */
+.badge {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+.bg-success {
+    background-color: #28a745; /* Approved status */
+}
+
+.bg-danger {
+    background-color: #dc3545; /* Rejected status */
+}
+
+.bg-warning {
+    background-color: #ffc107; /* Pending status */
+}
+
+/* Back to List Button */
+.btn-secondary {
+    background-color: #feb47b;
+    border-color: #feb47b;
+    padding: 0.75rem 2rem;
+    font-size: 1.125rem;
+    border-radius: 6px;
+}
+
+    .btn-secondary:hover {
+        background-color: #fda16f;
+        border-color: #fda16f;
+    }

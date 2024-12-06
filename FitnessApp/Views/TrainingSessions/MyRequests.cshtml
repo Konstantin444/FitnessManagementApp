@@ -1,39 +1,45 @@
 ﻿@model IEnumerable<PersonalTrainingRequest>
 
-<h2>My Personal Training Requests</h2>
+<h2 class="text-center">My Personal Training Requests</h2>
 
 @if (Model == null || !Model.Any())
 {
-    <div class="alert alert-info" role="alert">
+    <div class="alert alert-info text-center" role="alert">
         You have not made any personal training requests yet.
     </div>
 }
 else
 {
-    <table class="table table-bordered table-hover">
-        <thead class="thead-dark">
-            <tr>
-                <th>Trainer</th>
-                <th>Date</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var request in Model)
-            {
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
                 <tr>
-                    <td>@(request.Trainer?.Name ?? "Trainer Not Found")</td>
-                    <td>@request.Date.ToString("f")</td>
-                    <td>
-                        <span class="badge
-                            @(request.Status == "Approved" ? "bg-success" :
-                              request.Status == "Rejected" ? "bg-danger" : "bg-warning")">
-                            @request.Status
-                        </span>
-                    </td>
+                    <th>Trainer</th>
+                    <th>Date</th>
+                    <th>Status</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </thead>
+            <tbody>
+                @foreach (var request in Model)
+                {
+                    <tr>
+                        <td>@(request.Trainer?.Name ?? "Trainer Not Found")</td>
+                        <td>@request.Date.ToString("f")</td>
+                        <td>
+                            <span class="badge
+                                @(request.Status == "Approved" ? "bg-success" :
+                                request.Status == "Rejected" ? "bg-danger" : "bg-warning")">
+                                @request.Status
+                            </span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Back to List Button -->
+    <div class="d-flex justify-content-center">
+        <a asp-action="Index" class="btn btn-secondary btn-lg">Back to List</a>
+    </div>
 }
