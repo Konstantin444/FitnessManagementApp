@@ -1,8 +1,78 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Section 1: Banner -->
+<section class="banner-section">
+    <h1>Achieve Your Fitness Goals Today!</h1>
+</section>
+
+<!-- Section 2: Cards -->
+<section class="cards-section">
+    <div class="container">
+        <div class="row">
+            <!-- Training Sessions Card -->
+            <div class="col-md-6">
+                <div class="info-card">
+                    <h2>Training Sessions</h2>
+                    <p>Join our group training sessions and have fun while getting fit with others!</p>
+                    <a asp-area="" asp-controller="TrainingSessions" asp-action="Index" class="btn btn-primary">Explore Sessions</a>
+                </div>
+            </div>
+            <!-- Personal Training Card -->
+            <div class="col-md-6">
+                <div class="info-card">
+                    <h2>Book Personal Training</h2>
+                    <p>Work one-on-one with a professional trainer to achieve your goals!</p>
+                    <a asp-area="" asp-controller="TrainingSessions" asp-action="RequestTraining" class="btn btn-primary">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section 3: Information Grid -->
+<section class="info-grid-section">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="info-item">
+                    <img src="/path-to-icon1.svg" alt="Icon 1" />
+                    <p>3500 sq.m. of space with unique design and atmosphere.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-item">
+                    <img src="/path-to-icon2.svg" alt="Icon 2" />
+                    <p>Over 230 fitness machines from leading global brands.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-item">
+                    <img src="/path-to-icon3.svg" alt="Icon 3" />
+                    <p>A rich bar with supplements to meet all your needs.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-item">
+                    <img src="/path-to-icon4.svg" alt="Icon 4" />
+                    <p>Unique design recognized by DIBLA awards.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-item">
+                    <img src="/path-to-icon5.svg" alt="Icon 5" />
+                    <p>Personalized training with friendly instructors.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-item">
+                    <img src="/path-to-icon6.svg" alt="Icon 6" />
+                    <p>Located on a main boulevard with easy transport access.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />

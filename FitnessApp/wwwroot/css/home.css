@@ -1,0 +1,89 @@
+﻿/* Section 1: Banner */
+.banner-section {
+    width: 113.3%; /* Full width */
+    height: 400px; /* Adjust height as needed */
+    background: url('../banner.jpg') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    margin-left: -7%;
+}
+
+    .banner-section h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        padding: 0 1rem;
+    }
+
+/* Section 2: Cards */
+.cards-section {
+    padding: 2rem 0;
+    margin-top: -5%;
+}
+
+.info-card {
+    background-color: #191122;
+    border: 1px solid #FFA264;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    min-height: 40vh;
+}
+
+    .info-card h2 {
+        color: #75FFEA;
+        margin-bottom: 1rem;
+    }
+
+    .info-card p {
+        color: white;
+        margin-bottom: 1.5rem;
+    }
+
+    .info-card .btn {
+        position: relative;
+        bottom: -10px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .info-card:hover {
+        border: 1px solid #F8AF7E;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .info-card .btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+/* Section 3: Information Grid */
+.info-grid-section {
+    padding: 2rem 0;
+    background-color: #281F33;
+}
+
+.info-item {
+    background-color: #191122;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .info-item img {
+        width: 60px;
+        margin-bottom: 1rem;
+    }
+
+    .info-item p {
+        color: white;
+    }
+
+    .info-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }

@@ -40,28 +40,45 @@ body {
         text-decoration: none;
     }
 
-
+/* Dropdown Alignment Fix */
+.navbar .dropdown-toggle::after {
+    margin-left: 0.5rem; /* Adds spacing between text and arrow */
+    vertical-align: middle; /* Align arrow with text */
+    color: #FFA264; /* Arrow matches hover color */
+}
 
 /* Dropdown Menu */
 .dropdown-menu {
     background-color: #191122; /* Secondary color */
     border: none;
+    border-radius: 6px; /* Rounded corners */
 }
 
 .dropdown-item {
     color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
     .dropdown-item:hover {
         color: #FFA264; /* Accent color */
-        background-color: transparent;
+        background-color: transparent; /* No background change */
     }
 
-.nav-item.dropdown .dropdown-toggle {
-    margin-left: -8px;
-    display: inline-block;
-    width: 16px;
+.nav-item.dropdown {
+    display: flex;
+    align-items: center;
 }
+
+    .nav-item.dropdown .nav-link:first-child {
+        margin-right: 0.2rem; /* Slight spacing between the "Admin Dashboard" and the toggle */
+    }
+
+    .nav-item.dropdown .dropdown-toggle::after {
+        font-weight: 900; /* Adjust arrow weight */
+        margin-left: 0.2rem; /* Space between text and arrow */
+        vertical-align: middle;
+        color: inherit; /* Matches text color */
+    }
 
 /* Main Content */
 main {
@@ -79,26 +96,26 @@ main {
     transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth hover and click effects */
 }
 
-/* Hover Effect */
-.btn:hover {
-    background-color: #F8AF7E; /* Lighter shade on hover */
-    color: white; /* Ensure text remains visible */
-    text-decoration: none; /* Remove underline for links styled as buttons */
-}
+    /* Hover Effect */
+    .btn:hover {
+        background-color: #F8AF7E; /* Lighter shade on hover */
+        color: white; /* Ensure text remains visible */
+        text-decoration: none; /* Remove underline for links styled as buttons */
+    }
 
-/* Active/Pressed Effect */
-.btn:active {
-    background-color: #D67C40; /* Darker shade when pressed */
-    transform: scale(0.98); /* Slightly shrink the button for a pressed effect */
-}
+    /* Active/Pressed Effect */
+    .btn:active {
+        background-color: #D67C40; /* Darker shade when pressed */
+        transform: scale(0.98); /* Slightly shrink the button for a pressed effect */
+    }
 
-/* Disabled Button */
-.btn:disabled {
-    background-color: #999; /* Gray for disabled state */
-    color: #ddd; /* Light text */
-    cursor: not-allowed; /* Show not-allowed cursor */
-    opacity: 0.7;
-}
+    /* Disabled Button */
+    .btn:disabled {
+        background-color: #999; /* Gray for disabled state */
+        color: #ddd; /* Light text */
+        cursor: not-allowed; /* Show not-allowed cursor */
+        opacity: 0.7;
+    }
 
 /* Footer */
 .footer {
@@ -113,4 +130,3 @@ main {
     .footer span {
         font-size: 0.9rem;
     }
-
