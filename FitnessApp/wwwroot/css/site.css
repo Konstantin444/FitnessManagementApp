@@ -1,32 +1,110 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 body {
-  margin-bottom: 60px;
+    background-color: #281F33; /* Main background color */
+    color: white; /* Main text color */
+    font-family: 'Poppins', sans-serif; /* Global font */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure full viewport height */
+    margin: 0; /* Remove default margin */
 }
 
-.nav-item.dropdown:hover .dropdown-menu {
-    display: block;
+/* Header */
+.navbar {
+    background-color: #191122; /* Secondary color */
+    border-bottom: 1px solid #FFA264; /* Accent color */
+    position: sticky; /* Keep it fixed at the top */
+    top: 0;
+    z-index: 1000; /* Ensure it stays above other elements */
 }
 
-.nav-item.dropdown .dropdown-toggle {
-    margin-left: -8px; 
-    display: inline-block;
-    width: 16px;
+.navbar-brand {
+    color: #FFA264; /* Accent color for brand */
+    font-size: 1.5rem;
+    font-weight: bold;
 }
+
+    .navbar-brand:hover {
+        color: white;
+    }
+
+.nav-link {
+    color: white; /* Main text color for links */
+    transition: color 0.3s;
+}
+
+    .nav-link:hover {
+        color: #FFA264; /* Accent color on hover */
+        text-decoration: none;
+    }
+
+
+
+/* Dropdown Menu */
+.dropdown-menu {
+    background-color: #191122; /* Secondary color */
+    border: none;
+}
+
+.dropdown-item {
+    color: white;
+}
+
+    .dropdown-item:hover {
+        color: #FFA264; /* Accent color */
+        background-color: transparent;
+    }
+
+/* Main Content */
+main {
+    flex: 1; /* Ensure the main content fills the available space */
+    padding-bottom: 2rem; /* Add some spacing for comfort */
+}
+
+/* Global Button Styles */
+.btn {
+    background-color: #FFA264; /* Default button color */
+    color: white; /* Button text color */
+    border: none; /* Remove default border */
+    border-radius: 6px; /* Slight rounding for a modern look */
+    font-weight: 600; /* Bold font for buttons */
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth hover and click effects */
+}
+
+/* Hover Effect */
+.btn:hover {
+    background-color: #F8AF7E; /* Lighter shade on hover */
+    color: white; /* Ensure text remains visible */
+    text-decoration: none; /* Remove underline for links styled as buttons */
+}
+
+/* Active/Pressed Effect */
+.btn:active {
+    background-color: #D67C40; /* Darker shade when pressed */
+    transform: scale(0.98); /* Slightly shrink the button for a pressed effect */
+}
+
+/* Disabled Button */
+.btn:disabled {
+    background-color: #999; /* Gray for disabled state */
+    color: #ddd; /* Light text */
+    cursor: not-allowed; /* Show not-allowed cursor */
+    opacity: 0.7;
+}
+
+/* Footer */
+.footer {
+    background-color: #191122; /* Secondary color */
+    color: white; /* Main text color */
+    padding: 10px 0;
+    border-top: 1px solid #FFA264; /* Accent color */
+    text-align: center;
+    margin-top: auto; /* Push the footer to the bottom */
+}
+
+    .footer span {
+        font-size: 0.9rem;
+    }
+
