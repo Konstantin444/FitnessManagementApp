@@ -4,6 +4,7 @@
     height: 300px;
     background: url('../session-banner.jpg') no-repeat center center;
     background-size: cover;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,6 +36,16 @@
     margin-bottom: 1rem;
     text-align: center;
 }
+
+.btn-primary {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+    .btn-primary:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
 
 /* Request Cards */
 .request-card {
@@ -134,6 +145,7 @@
         .session-card .btn-info:hover {
             background-color: #64E0D5;
             border-color: #64E0D5;
+            color: white;
         }
 
         .session-card .btn-info:active {
