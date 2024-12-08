@@ -6,136 +6,125 @@
     var isAdmin = User.IsInRole("Admin");
     var isMember = User.IsInRole("Member");
 }
-
-<h1>Training Sessions</h1>
-
-@if (isAdmin)
-{
-        <p>
-            <a asp-action="Create" class="btn btn-primary">Create New Session</a>
-        </p>
-}
-
-<table class="table table-striped table-bordered">
-    <thead class="thead-dark">
-        <tr>
-            <th>Name</th>
-            <th>Trainer</th>
-            <th>Session Date and Time</th>
-            <th>Max Participants</th>
-            <th>Available Slots</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+<section class="banner-section text-center">
+    <div class="container">
+        <h1 class="page-title">Training Sessions</h1>
+        @if (isAdmin)
         {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                    <td>@(item.Trainer?.Name ?? "No Trainer")</td> <!-- Handles null Trainer -->
-                    <td>@item.SessionDateTime.ToString("f")</td>
-                    <td>@item.MaxParticipants</td>
-                    <td>
-                    @(item.MaxParticipants - (item.Reservations?.Count() ?? 0))
-                    </td>
-                    <td>
-                    @if (isAdmin)
-                    {
-                                <a asp-action="Edit" asp-route-id="@item.SessionId" class="btn btn-sm btn-warning">Edit</a>
-                                <a asp-action="Details" asp-route-id="@item.SessionId" class="btn btn-sm btn-info">Details</a>
-                                <a asp-action="Delete" asp-route-id="@item.SessionId" class="btn btn-sm btn-danger">Delete</a>
-                    }
-                    else if (isMember)
-                    {
-                                <button class="btn btn-sm btn-primary"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#reserveModal"
-                                        data-session-id="@item.SessionId"
-                                        data-session-name="@item.Name"
-                                        data-session-trainer="@(item.Trainer?.Name ?? "No Trainer")"
-                                        data-session-date="@item.SessionDateTime.ToString("g")"
-                                        data-max-participants="@item.MaxParticipants"
-                                        data-available-slots="@(item.MaxParticipants - (item.Reservations?.Count() ?? 0))"
-                                        data-is-user-reserved="@item.Reservations.Any(r => r.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))">
-                                    Reserve
-                                </button>
-                                <a asp-action="Details" asp-route-id="@item.SessionId" class="btn btn-sm btn-info">Details</a>
-                    }
-                    </td>
-                </tr>
+            <a asp-action="Create" class="btn btn-primary mt-3">Create New Session</a>
         }
-    </tbody>
-</table>
+    </div>
+</section>
+
+<section class="training-sessions-section">
+    <div class="container">
+        <div class="row g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="card session-card">
+                        <div class="card-header text-center">@item.Name</div>
+                        <div class="card-body">
+                            <p><strong>Trainer:</strong> @(item.Trainer?.Name ?? "No Trainer")</p>
+                            <p><strong>Date:</strong> @item.SessionDateTime.ToString("f")</p>
+                            <p><strong>Max Participants:</strong> @item.MaxParticipants</p>
+                            <p><strong>Available Slots:</strong> @(item.MaxParticipants - (item.Reservations?.Count() ?? 0))</p>
+                            <div class="d-flex justify-content-around mt-3">
+                                @if (isAdmin)
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.SessionId" class="btn btn-warning btn-sm">Edit</a>
+                                    <a asp-action="Details" asp-route-id="@item.SessionId" class="btn btn-info btn-sm">Details</a>
+                                    <a asp-action="Delete" asp-route-id="@item.SessionId" class="btn btn-danger btn-sm">Delete</a>
+                                }
+                                else if (isMember)
+                                {
+                                    <button class="btn btn-primary btn-sm reserve-btn"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#reserveModal"
+                                            data-session-id="@item.SessionId"
+                                            data-session-name="@item.Name"
+                                            data-session-trainer="@(item.Trainer?.Name ?? "No Trainer")"
+                                            data-session-date="@item.SessionDateTime.ToString("f")"
+                                            data-max-participants="@item.MaxParticipants"
+                                            data-available-slots="@(item.MaxParticipants - (item.Reservations?.Count() ?? 0))">
+                                        Reserve
+                                    </button>
+                                    <a asp-action="Details" asp-route-id="@item.SessionId" class="btn btn-info btn-sm">Details</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="personal-training-section text-center">
+    <div class="container">
+        @if (isMember)
+        {
+            <div class="training-requests mt-4">
+                @if (ViewBag.PersonalTrainingRequests != null &&
+               ((IEnumerable<FitnessApp.Models.PersonalTrainingRequest>)ViewBag.PersonalTrainingRequests).Any())
+                {
+                    <h3 class="section-title">My Personal Training Requests</h3>
+                    <a asp-action="RequestTraining" class="btn btn-primary mb-4">Request Personal Training</a>
+                    <div class="row g-4 mt-3">
+                        @foreach (var request in ViewBag.PersonalTrainingRequests as IEnumerable<FitnessApp.Models.PersonalTrainingRequest>)
+                        {
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card request-card">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Trainer: @(request.Trainer?.Name ?? "Trainer Not Found")</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>Date:</strong> @request.Date.ToString("f")</p>
+                                        <p>
+                                            <strong>Status:</strong>
+                                            <span class="badge
+                                                @(request.Status == "Approved" ? "status-approved" :
+                                                  request.Status == "Rejected" ? "status-rejected" : "status-pending")">
+                                                @request.Status
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-white">No personal training requests found.</p>
+                }
+            </div>
+        }
+    </div>
+</section>
 
 <!-- Modal -->
 <div class="modal fade" id="reserveModal" tabindex="-1" aria-labelledby="reserveModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content modal-custom">
             <div class="modal-header">
                 <h5 class="modal-title" id="reserveModalLabel">Session Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Placeholder for session details -->
                 <p><strong>Name:</strong> <span id="sessionName"></span></p>
                 <p><strong>Trainer:</strong> <span id="sessionTrainer"></span></p>
                 <p><strong>Date:</strong> <span id="sessionDate"></span></p>
                 <p><strong>Max Participants:</strong> <span id="maxParticipants"></span></p>
                 <p><strong>Available Slots:</strong> <span id="availableSlots"></span></p>
-
-                <!-- Error message -->
-                <div id="modalError" class="text-danger" style="display: none; margin-top: 10px;"></div>
+                <div id="modalError" class="text-danger mt-2" style="display: none;"></div>
             </div>
             <div class="modal-footer">
                 <button id="reserveButton" class="btn btn-success">Join Session</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
-@if (isMember)
-{
-        <h2>Request Personal Training</h2>
-        <p>
-            <a asp-action="RequestTraining" class="btn btn-primary">Request Personal Training</a>
-        </p>
-
-    @if (ViewBag.PersonalTrainingRequests != null &&
-       ((IEnumerable<FitnessApp.Models.PersonalTrainingRequest>)ViewBag.PersonalTrainingRequests).Any())
-    {
-                <h3>My Personal Training Requests</h3>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Trainer</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                @foreach (var request in ViewBag.PersonalTrainingRequests as IEnumerable<FitnessApp.Models.PersonalTrainingRequest>)
-                {
-                                <tr>
-                                    <td>@(request.Trainer?.Name ?? "Trainer Not Found")</td>
-                                    <td>@request.Date.ToString("f")</td>
-                                    <td>
-                                        <span class="badge
-                                @(request.Status == "Approved" ? "bg-success" :
-                                  request.Status == "Rejected" ? "bg-danger" : "bg-warning")">
-                                @request.Status
-                                        </span>
-                                    </td>
-                                </tr>
-                }
-                    </tbody>
-                </table>
-    }
-    else
-    {
-                <h3>My Personal Training Requests</h3>
-                <p class="text-center">No personal training requests found.</p>
-    }
-}
-
+<link rel="stylesheet" href="~/css/training-sessions.css" asp-append-version="true" />
 <script src="/js/reserve-modal.js"></script>

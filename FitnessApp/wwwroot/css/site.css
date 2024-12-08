@@ -89,10 +89,11 @@ main {
 /* Global Button Styles */
 .btn {
     background-color: #FFA264; /* Default button color */
-    color: white; /* Button text color */
+    color: #191122; /* Button text color */
     border: none; /* Remove default border */
     border-radius: 6px; /* Slight rounding for a modern look */
     font-weight: 600; /* Bold font for buttons */
+    margin-top: 5px;
     transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth hover and click effects */
 }
 

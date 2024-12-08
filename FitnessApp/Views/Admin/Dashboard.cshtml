@@ -6,113 +6,114 @@
     var trainers = ViewBag.Trainers as IEnumerable<FitnessApp.Models.Trainer>;
 }
 
-<h1>Admin Dashboard</h1>
+<div class="container admin-dashboard">
+    <h1 class="page-title">Admin Dashboard</h1>
 
-<div class="row">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">Total Members</div>
-            <div class="card-body">
-                <h3>@ViewBag.TotalMembers</h3>
+    <!-- Statistics Cards -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card dashboard-card">
+                <div class="card-header">Total Members</div>
+                <div class="card-body">
+                    <h3>@ViewBag.TotalMembers</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card dashboard-card">
+                <div class="card-header">Total Requests</div>
+                <div class="card-body">
+                    <h3>@ViewBag.TotalRequests</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card dashboard-card">
+                <div class="card-header">Total Visits</div>
+                <div class="card-body">
+                    <h3>@ViewBag.TotalVisits</h3>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">Total Requests</div>
-            <div class="card-body">
-                <h3>@ViewBag.TotalRequests</h3>
-            </div>
+
+    <hr />
+
+    <!-- Popular Training Sessions -->
+    <h2 class="section-title">Most Popular Training Sessions</h2>
+    @if (popularSessions != null && popularSessions.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-striped custom-table">
+                <thead>
+                    <tr>
+                        <th>Session Name</th>
+                        <th>Trainer</th>
+                        <th>Reservations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var session in popularSessions)
+                    {
+                        <tr>
+                            <td>@session.Name</td>
+                            <td>@(session.Trainer?.Name ?? "No Trainer Assigned")</td>
+                            <td>@session.Reservations.Count</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">Total Visits</div>
-            <div class="card-body">
-                <h3>@ViewBag.TotalVisits</h3>
-            </div>
+    }
+    else
+    {
+        <p>No popular training sessions found.</p>
+    }
+
+    <hr />
+
+    <!-- All Trainers -->
+    <h2 class="section-title">All Trainers</h2>
+    @if (trainers != null && trainers.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-striped custom-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var trainer in trainers)
+                    {
+                        <tr>
+                            <td>@trainer.Name</td>
+                            <td>
+                                <a asp-action="EditTrainer" asp-route-id="@trainer.Id" class="btn btn-warning btn-sm">Edit</a>
+                                <form method="post" asp-action="DeleteTrainer" asp-route-id="@trainer.Id" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
+    }
+    else
+    {
+        <p>No trainers found.</p>
+    }
+
+    <hr />
+    <div class="actions mt-4">
+        <a asp-action="CreateTrainer" class="btn">Create New Trainer</a>
+        <a asp-action="ManageTrainingRequests" class="btn">View Pending Requests</a>
+        <a asp-controller="MemberManagement" asp-action="Index" class="btn">Manage Members</a>
     </div>
 </div>
 
-<hr />
 
-<h2>Most Popular Training Sessions</h2>
-
-@if (popularSessions != null && popularSessions.Any())
-
-{
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Session Name</th>
-                <th>Trainer</th>
-                <th>Reservations</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var session in popularSessions)
-
-            {
-                <tr>
-                    <td>@session.Name</td>
-                    <td>@(session.Trainer?.Name ?? "No Trainer Assigned")</td>
-                    <td>@session.Reservations.Count</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-
-else
-
-{
-    <p>No popular training sessions found.</p>
-}
-
-<hr />
-
-<h2>All Trainers</h2>
-
-@if (trainers != null && trainers.Any())
-
-{
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var trainer in trainers)
-
-            {
-                <tr>
-                    <td>@trainer.Name</td>
-                    <td>
-                        <a asp-action="EditTrainer" asp-route-id="@trainer.Id" class="btn btn-warning btn-sm">Edit</a>
-
-                        <!-- Delete Trainer button in a form, triggering POST request -->
-                        <form method="post" asp-action="DeleteTrainer" asp-route-id="@trainer.Id" class="d-inline">
-                            @Html.AntiForgeryToken()  <!-- Add anti-forgery token -->
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-
-else
-
-{
-    <p>No trainers found.</p>
-}
-<hr />
-<div class="mt-3">
-    <a asp-action="CreateTrainer" class="btn btn-primary">Create New Trainer</a>
-    <a asp-action="ManageTrainingRequests" class="btn btn-warning">View Pending Requests</a>
-    <a asp-controller="MemberManagement" asp-action="Index" class="btn btn-secondary">Manage Members</a>
-</div>
+<link rel="stylesheet" href="~/css/admin-dashboard.css" asp-append-version="true" />

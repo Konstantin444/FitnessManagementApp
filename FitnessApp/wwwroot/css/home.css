@@ -1,7 +1,7 @@
 ﻿/* Section 1: Banner */
 .banner-section {
-    width: 113.3%; /* Full width */
-    height: 400px; /* Adjust height as needed */
+    width: 113.3%;
+    height: 400px;
     background: url('../banner.jpg') no-repeat center center;
     background-size: cover;
     display: flex;

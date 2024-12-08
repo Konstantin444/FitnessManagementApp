@@ -1,0 +1,183 @@
+﻿/* Admin Dashboard */
+.admin-dashboard {
+    background-color: #281F33; /* Main background color */
+    color: white; /* Main text color */
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+/* Cards */
+.dashboard-card {
+    background-color: #191122;
+    color: white;
+    border: 1px solid #FFA264;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+    .dashboard-card .card-header {
+        color: #75FFEA; /* Title color */
+        font-weight: bold;
+        font-size: 1.2rem;
+        background-color: transparent; /* Transparent background */
+        border-bottom: none;
+    }
+
+/* Custom Tables for Dark Theme */
+.table {
+    --bs-table-bg: #191122; /* Override Bootstrap's default table background color */
+    --bs-table-striped-bg: #202030; /* Background for striped rows */
+    --bs-table-hover-bg: #2D2A3B; /* Hover background color */
+    --bs-table-color: white; /* Override default text color */
+    --bs-table-border-color: #281F33; /* Border color */
+
+    background-color: #191122; /* Dark purple for table background */
+    color: white; /* White text for the table */
+    border: 1px solid #FFA264; /* Accent border */
+    border-radius: 8px; /* Rounded edges for the table */
+    overflow: hidden; /* Ensure border radius applies */
+}
+
+    /* Header Styles */
+    .table thead th {
+        background-color: #191122; /* Match the table background */
+        color: #75FFEA; /* Title color */
+        font-weight: bold;
+        text-align: center;
+        border-bottom: 2px solid #FFA264; /* Accent color for header separator */
+    }
+
+    /* Body Styles */
+    .table tbody tr {
+        background-color: #191122; /* Dark purple for body rows */
+        border-bottom: 1px solid #281F33; /* Subtle row separator */
+    }
+
+        .table tbody tr:nth-of-type(odd) {
+            background-color: #202030; /* Slightly darker alternating rows for contrast */
+        }
+
+        .table tbody tr td {
+            color: white; /* White text for table data */
+        }
+
+        /* Row Hover Effect */
+        .table tbody tr:hover {
+            background-color: #2D2A3B; /* Slight hover effect for rows */
+        }
+
+    /* Cell Padding */
+    .table td, .table th {
+        padding: 12px 15px; /* Comfortable padding for all cells */
+        text-align: center; /* Center-align text in cells */
+    }
+
+/* Table Border for Bordered Tables */
+.table-bordered {
+    border: 1px solid #FFA264; /* Accent border for bordered tables */
+}
+
+    .table-bordered td, .table-bordered th {
+        border: 1px solid #191122; /* Match inner borders */
+    }
+
+
+/* Buttons */
+.btn-warning {
+    background-color: #FFA264;
+    border-color: #FFA264;
+    color: white;
+}
+
+    .btn-warning:hover {
+        background-color: #F8AF7E;
+        border-color: #F8AF7E;
+    }
+
+    .btn-warning:active {
+        background-color: #D67C40;
+        border-color: #D67C40;
+    }
+
+.btn-danger {
+    background-color: #D9534F;
+    border-color: #D9534F;
+    color: white;
+}
+
+    .btn-danger:hover {
+        background-color: #C9302C;
+        border-color: #C9302C;
+    }
+
+    .btn-danger:active {
+        background-color: #A52A2A;
+        border-color: #A52A2A;
+    }
+
+.btn-primary {
+    background-color: #75FFEA;
+    border-color: #75FFEA;
+    color: #191122;
+}
+
+    .btn-primary:hover {
+        background-color: #64E0D5;
+        border-color: #64E0D5;
+    }
+
+    .btn-primary:active {
+        background-color: #53C4B8;
+        border-color: #53C4B8;
+    }
+
+.btn-secondary {
+    background-color: #FFA264;
+    border-color: #FFA264;
+    color: white;
+}
+
+    .btn-secondary:hover {
+        background-color: #F8AF7E;
+        border-color: #F8AF7E;
+    }
+
+    .btn-secondary:active {
+        background-color: #D67C40;
+        border-color: #D67C40;
+    }
+
+/* Responsive Grid */
+.row {
+    display: flex;
+    justify-content: center; /* Center-align grid items */
+    gap: 1.5rem; /* Add spacing between grid items */
+}
+
+.col-md-4 {
+    flex: 0 0 calc(33.333% - 1rem);
+    max-width: calc(33.333% - 1rem);
+}
+
+@media (max-width: 768px) {
+    .col-md-4 {
+        flex: 0 0 calc(50% - 1rem);
+        max-width: calc(50% - 1rem);
+    }
+}
+
+@media (max-width: 576px) {
+    .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}

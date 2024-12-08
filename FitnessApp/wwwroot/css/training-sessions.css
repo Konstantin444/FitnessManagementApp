@@ -1,0 +1,255 @@
+﻿/* Banner Section */
+.banner-section {
+    width: 113.3%;
+    height: 300px;
+    background: url('../session-banner.jpg') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    margin-left: -7%;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.banner-section .btn-primary {
+    margin-top: 20px;
+    padding: 0.8rem 2rem; /* Adjust padding for larger size */
+    font-size: 1.25rem; /* Increase font size */
+}
+
+/* Personal Training Requests Section */
+.personal-training-section {
+    background-color: #281F33;
+    padding: 2rem 0;
+}
+
+.section-title {
+    color: white;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Request Cards */
+.request-card {
+    background-color: #191122;
+    color: white;
+    border: 1px solid #FFA264;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+    .request-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .request-card .card-header {
+        color: white; /* Title color */
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+        background-color: transparent; /* Remove background */
+        border-bottom: none;
+        margin-top: 2vh;
+    }
+
+    .request-card .card-body p {
+        font-size: 1rem;
+        color: white;
+        margin: 0.5rem 0;
+    }
+
+/* Training Sessions Section */
+.training-sessions-section {
+    background-color: #281F33;
+    padding: 2rem 0;
+}
+
+.session-card {
+    background-color: #191122;
+    color: white;
+    border: 1px solid #FFA264;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 100%; /* Ensure consistent height */
+}
+
+    .session-card .card-header {
+        color: white;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+        background-color: transparent; /* Keep background transparent */
+        border-bottom: none;
+        margin-top: 2vh;
+    }
+
+    .session-card .card-body p {
+        font-size: 1rem;
+        color: white;
+        margin: 0.5rem 0;
+    }
+
+    /* Buttons for Action */
+    .session-card .btn {
+        transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+        .session-card .btn:hover {
+            transform: translateY(-5px); /* Lift on hover */
+        }
+
+    .session-card .btn-warning {
+        background-color: #FFA264;
+        border-color: #FFA264;
+        color: white;
+    }
+
+        .session-card .btn-warning:hover {
+            background-color: #F8AF7E;
+            border-color: #F8AF7E;
+        }
+
+        .session-card .btn-warning:active {
+            background-color: #D67C40;
+            border-color: #D67C40;
+        }
+
+    .session-card .btn-info {
+        background-color: #75FFEA;
+        border-color: #75FFEA;
+        color: #191122;
+    }
+
+        .session-card .btn-info:hover {
+            background-color: #64E0D5;
+            border-color: #64E0D5;
+        }
+
+        .session-card .btn-info:active {
+            background-color: #53C4B8;
+            border-color: #53C4B8;
+        }
+
+    .session-card .btn-danger {
+        background-color: #D9534F;
+        border-color: #D9534F;
+        color: white;
+    }
+
+        .session-card .btn-danger:hover {
+            background-color: #C9302C;
+            border-color: #C9302C;
+        }
+
+        .session-card .btn-danger:active {
+            background-color: #A52A2A;
+            border-color: #A52A2A;
+        }
+
+/* Modal Customization */
+.modal-custom {
+    background-color: #191122;
+    color: white;
+    border: 2px solid #FFA264;
+    border-radius: 10px;
+}
+
+    .modal-custom .modal-header {
+        color: #75FFEA; /* Title color */
+        background-color: transparent; /* Remove header background */
+        border-bottom: none;
+    }
+
+    .modal-custom .modal-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .modal-custom .modal-body {
+        color: white;
+    }
+
+    .modal-custom .modal-footer .btn {
+        border-radius: 4px;
+        transition: transform 0.2s ease;
+    }
+
+        .modal-custom .modal-footer .btn:hover {
+            transform: translateY(-5px);
+        }
+
+    .modal-custom .btn-close {
+        filter: invert(100%);
+    }
+
+    .modal-custom .btn-close-white {
+        background: white;
+        border-radius: 50%;
+    }
+
+/* Grid Adjustments for Rows */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 1.5rem; /* Add spacing between cards */
+}
+
+.col-md-6,
+.col-lg-4 {
+    flex: 0 0 calc(33.333% - 1rem); /* Adjust width to fit three cards per row */
+    max-width: calc(33.333% - 1rem);
+}
+
+@media (max-width: 768px) {
+    .col-md-6,
+    .col-lg-4 {
+        flex: 0 0 calc(50% - 1rem); /* Adjust to two cards per row for smaller screens */
+        max-width: calc(50% - 1rem);
+    }
+}
+
+@media (max-width: 576px) {
+    .col-md-6,
+    .col-lg-4 {
+        flex: 0 0 100%; /* Single card per row for mobile devices */
+        max-width: 100%;
+    }
+}
+
+/* Statuses */
+.status-approved {
+    color: #008000; /* Green text */
+    background: none;
+}
+
+.status-rejected {
+    color: #FF0000; /* Red text */
+    background: none;
+}
+
+.status-pending {
+    color: #FFA264; /* Accent text */
+    background: none;
+}
+
+/* Utilities */
+.text-center {
+    text-align: center;
+}
+
+.badge {
+    font-size: 0.9rem;
+}
