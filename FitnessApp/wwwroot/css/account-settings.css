@@ -1,0 +1,40 @@
+﻿/* Page Title */
+.page-title {
+    color: #75FFEA; /* Title color */
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Account Settings Page */
+.account-settings-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+/* Settings Card */
+.settings-card {
+    background-color: #191122; /* Card background */
+    border: 1px solid #FFA264; /* Accent border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 2rem;
+    max-width: 700px; /* Limit the width */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Section Title */
+.section-title {
+    color: white; /* Text color */
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    text-align: center; /* Center-align section titles */
+}
+
+/* Row Styling */
+.row {
+    margin-top: 1.5rem; /* Add spacing above the row */
+}

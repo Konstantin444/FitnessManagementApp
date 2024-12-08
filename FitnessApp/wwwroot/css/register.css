@@ -1,0 +1,68 @@
+﻿/* Page Title */
+.form-title {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    font-weight: bold;
+}
+
+/* Register Card */
+.register-card {
+    background-color: #191122; /* Card background */
+    border: 1px solid #FFA264; /* Accent border */
+    border-radius: 8px; /* Rounded edges */
+    padding: 2rem;
+    max-width: 500px; /* Fixed width */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin: 0 auto; /* Center the card */
+}
+
+/* Form Fields */
+.form-control {
+    background-color: #191122; /* Field background */
+    border: 1px solid #FFA264; /* Accent border */
+    color: white; /* Text color */
+    padding: 0.8rem; /* Add padding for a larger feel */
+    font-size: 1rem;
+}
+
+    .form-control:focus {
+        border-color: #FFA264; /* Highlight border */
+        box-shadow: 0 0 5px rgba(255, 162, 100, 0.6); /* Subtle glow effect */
+        outline: none; /* Remove default outline */
+    }
+
+.form-label {
+    color: white; /* Label text */
+}
+
+/* Role Dropdown */
+.form-select {
+    background-color: #191122; /* Field background */
+    border: 1px solid #FFA264; /* Accent border */
+    color: white; /* Text color */
+}
+
+    .form-select:focus {
+        border-color: #FFA264;
+        box-shadow: 0 0 5px rgba(255, 162, 100, 0.6); /* Subtle glow effect */
+    }
+
+/* Button */
+.btn-primary {
+    background-color: #FFA264;
+    border: none;
+    font-weight: bold;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #F8AF7E;
+        transform: translateY(-3px);
+    }
+
+    .btn-primary:active {
+        background-color: #D67C40;
+        transform: translateY(0);
+    }
