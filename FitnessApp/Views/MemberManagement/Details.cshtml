@@ -5,44 +5,48 @@
     var reservations = ViewBag.Reservations as IEnumerable<FitnessApp.Models.Reservation>;
 }
 
-<h1>Member Details</h1>
+<h1 class="text-center form-title">Member Details</h1>
 
-<dl class="row">
-    <dt class="col-sm-2">User Name</dt>
-    <dd class="col-sm-10">@Model.UserName</dd>
+<div class="details-card mx-auto">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">User Name</dt>
+            <dd class="col-sm-8">@Model.UserName</dd>
 
-    <dt class="col-sm-2">Email</dt>
-    <dd class="col-sm-10">@Model.Email</dd>
-</dl>
+            <dt class="col-sm-4">Email</dt>
+            <dd class="col-sm-8">@Model.Email</dd>
+        </dl>
+    </div>
+</div>
 
 @if (reservations != null && reservations.Any())
 {
-    <h4>Reservations</h4>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Training Session</th>
-                <th>Trainer</th>
-                <th>Session Date</th>
-                <th>Reservation Made On</th>
-            </tr>
-        </thead>
-        <tbody>
+    <h4 class="text-center section-title">Reservations</h4>
+    <div class="reservation-cards">
+        <div class="row">
             @foreach (var reservation in reservations)
             {
-                <tr>
-                    <td>@reservation.TrainingSession.Name</td>
-                    <td>@reservation.TrainingSession.Trainer</td>
-                    <td>@reservation.TrainingSession.SessionDateTime.ToString("g")</td>
-                    <td>@reservation.ReservationDateTime.ToString("g")</td>
-                </tr>
+                <div class="col-md-4">
+                    <div class="reservation-card">
+                        <div class="card-body">
+                            <p><strong>Session:</strong> @reservation.TrainingSession.Name</p>
+                            <p><strong>Trainer:</strong> @reservation.TrainingSession.Trainer</p>
+                            <p><strong>Session Date:</strong> @reservation.TrainingSession.SessionDateTime.ToString("g")</p>
+                            <p><strong>Reserved On:</strong> @reservation.ReservationDateTime.ToString("g")</p>
+                        </div>
+                    </div>
+                </div>
             }
-        </tbody>
-    </table>
+        </div>
+    </div>
 }
 else
 {
-    <p>No reservations found for this member.</p>
+    <p class="text-center no-data">No reservations found for this member.</p>
 }
 
-<a asp-action="Index" class="btn btn-secondary">Back to Members</a>
+<div class="text-center">
+    <a asp-action="Index" class="btn btn-secondary">Back to Members</a>
+</div>
+
+<link rel="stylesheet" href="~/css/member-details.css" asp-append-version="true" />

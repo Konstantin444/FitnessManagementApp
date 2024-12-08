@@ -1,0 +1,111 @@
+﻿.title-section {
+    margin-top: 2vh;
+    font-weight: bold;
+}
+
+    .title-section .btn-primary {
+        margin-top: 10px;
+        padding: 0.8rem 2rem; /* Adjust padding for larger size */
+        font-size: 1.25rem; /* Increase font size */
+    }
+
+/* Members Section */
+.member-card {
+    background-color: #191122; /* Dark card background */
+    border: 1px solid #FFA264; /* Accent border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 1.5rem; /* Padding inside the card */
+    width: 100%; /* Full width of the column */
+    height: auto; /* Keep height dynamic */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+    .member-card .card-header {
+        background-color: transparent; /* Transparent header */
+        color: #75FFEA; /* Title color */
+        font-weight: bold;
+        text-align: center;
+        border-bottom: none;
+    }
+
+    .member-card .card-title {
+        font-size: 1.8rem; /* Larger font size for the title */
+        margin: 0;
+    }
+
+    .member-card .card-body p {
+        color: white; /* White text for card content */
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Action Buttons */
+    .member-card .btn {
+        transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+    }
+
+        .member-card .btn:hover {
+            transform: translateY(-5px); /* Lift button on hover */
+        }
+
+    .member-card .btn-info {
+        background-color: #75FFEA;
+        border-color: #75FFEA;
+        color: #191122;
+    }
+
+        .member-card .btn-info:hover {
+            background-color: #64E0D5;
+            border-color: #64E0D5;
+        }
+
+    .member-card .btn-warning {
+        background-color: #FFA264;
+        border-color: #FFA264;
+        color: white;
+    }
+
+        .member-card .btn-warning:hover {
+            background-color: #F8AF7E;
+            border-color: #F8AF7E;
+        }
+
+    .member-card .btn-danger {
+        background-color: #D9534F;
+        border-color: #D9534F;
+        color: white;
+    }
+
+        .member-card .btn-danger:hover {
+            background-color: #C9302C;
+            border-color: #C9302C;
+        }
+
+/* Grid Adjustments for Three Cards Per Row */
+.row {
+    margin-top: 2rem;
+    justify-content: center; /* Center align the cards */
+    gap: 1.5rem; /* Add spacing between rows */
+}
+
+.col-lg-4, .col-md-6 {
+    flex: 0 0 calc(33.333% - 1rem); /* Adjust width for three cards per row */
+    max-width: calc(33.333% - 1rem); /* Maintain consistent width */
+}
+
+@media (max-width: 768px) {
+    .col-lg-4, .col-md-6 {
+        flex: 0 0 calc(50% - 1rem); /* Two cards per row on medium screens */
+        max-width: calc(50% - 1rem);
+    }
+}
+
+@media (max-width: 576px) {
+    .col-lg-4, .col-md-6 {
+        flex: 0 0 100%; /* One card per row on small screens */
+        max-width: 100%;
+    }
+}

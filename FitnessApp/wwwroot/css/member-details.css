@@ -1,0 +1,67 @@
+﻿/* Page Title */
+.form-title {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    font-weight: bold;
+}
+
+/* Details Card */
+.details-card {
+    background-color: #191122; /* Card background */
+    color: white; /* Text color */
+    border: 1px solid #FFA264; /* Accent border */
+    border-radius: 8px; /* Rounded edges */
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-width: 600px; /* Fixed width */
+    margin: 0 auto 2rem; /* Center and add spacing below */
+}
+
+/* Reservations Section */
+.section-title {
+    color: white; /* Title color */
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+.reservation-cards .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.5rem; /* Space between cards */
+}
+
+.reservation-card {
+    background-color: #191122; /* Card background */
+    color: white; /* Text color */
+    border: 1px solid #FFA264; /* Accent border */
+    border-radius: 8px; /* Rounded edges */
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* No Data Message */
+.no-data {
+    color: #FFA264;
+    font-size: 1.2rem;
+    margin: 1.5rem 0;
+}
+
+/* Back Button */
+.text-center .btn-secondary {
+    background-color: #75FFEA;
+    border-color: #75FFEA;
+    color: #191122;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+    .text-center .btn-secondary:hover {
+        background-color: #64E0D5;
+        border-color: #64E0D5;
+        transform: translateY(-3px);
+    }

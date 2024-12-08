@@ -1,0 +1,125 @@
+﻿/* Page Heading */
+h1.text-center {
+    color: white;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    font-weight: bold;
+}
+
+/* Filter Form */
+.filter-form .form-label {
+    color: #75FFEA;
+    font-weight: bold;
+}
+
+.filter-form .form-select {
+    background-color: #191122;
+    color: white;
+    border: 1px solid #FFA264;
+    border-radius: 6px;
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+
+    .filter-form .form-select:focus {
+        border-color: #FFA264;
+        box-shadow: 0 0 4px rgba(255, 162, 100, 0.5);
+    }
+
+/* Request Cards */
+.request-card {
+    background-color: #191122;
+    color: white;
+    border: 1px solid #FFA264;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+    .request-card .card-header {
+        color: #75FFEA;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .request-card .card-body p {
+        margin: 0.5rem 0;
+        font-size: 1rem;
+    }
+
+    /* Action Buttons */
+    .request-card .btn {
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .request-card .btn:hover {
+            transform: translateY(-3px);
+        }
+
+    .request-card .btn-success {
+        background-color: #75FFEA;
+        border-color: #75FFEA;
+        color: #191122;
+    }
+
+        .request-card .btn-success:hover {
+            background-color: #64E0D5;
+            border-color: #64E0D5;
+        }
+
+    .request-card .btn-danger {
+        background-color: #D9534F;
+        border-color: #D9534F;
+        color: white;
+    }
+
+        .request-card .btn-danger:hover {
+            background-color: #C9302C;
+            border-color: #C9302C;
+        }
+
+/* Status Badges */
+.badge-approved {
+    color: #75FFEA;
+}
+
+.badge-rejected {
+    color: #D9534F;
+}
+
+.badge-pending {
+    color: #FFA264;
+}
+
+/* Grid Layout */
+.row {
+    margin-top: 2rem;
+    justify-content: space-around;
+    gap: 1.5rem; /* Spacing between cards */
+}
+
+.col-lg-4,
+.col-md-6 {
+    flex: 0 0 calc(33.333% - 1rem);
+    max-width: calc(33.333% - 1rem);
+}
+
+@media (max-width: 768px) {
+    .col-lg-4, .col-md-6 {
+        flex: 0 0 calc(50% - 1rem);
+        max-width: calc(50% - 1rem);
+    }
+}
+
+@media (max-width: 576px) {
+    .col-lg-4, .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}

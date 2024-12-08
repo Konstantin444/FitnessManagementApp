@@ -4,32 +4,33 @@
     ViewData["Title"] = "Members";
 }
 
-<h1>Members</h1>
+<div class="title-section">
+    <h1 class="text-center mb-4">Members</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Add New Member</a>
-</p>
+    <p class="text-center">
+        <a asp-action="Create" class="btn btn-primary">Add New Member</a>
+    </p>
+</div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>User Name</th>
-            <th>Email</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
-            <tr>
-                <td>@user.UserName</td>
-                <td>@user.Email</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@user.Id" class="btn btn-sm btn-info">Details</a>
-                    <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-sm btn-warning">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-sm btn-danger">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="row g-4">
+    @foreach (var user in Model)
+    {
+        <div class="col-lg-4 col-md-6">
+            <div class="card member-card">
+                <div class="card-header text-center">
+                    <h5 class="card-title">@user.UserName</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Email:</strong> @user.Email</p>
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Details" asp-route-id="@user.Id" class="btn btn-info">Details</a>
+                        <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<link rel="stylesheet" href="~/css/manage-members.css" asp-append-version="true" />

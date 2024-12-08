@@ -4,42 +4,49 @@
     ViewData["Title"] = "Create Training Session";
 }
 
-<h1>Create Training Session</h1>
+<h1 class="text-center form-title">Create Training Session</h1>
 
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+<div class="d-flex justify-content-center align-items-center create-form-wrapper">
+    <form asp-action="Create" class="create-session-form">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-            <div class="form-group mb-3">
-                <label asp-for="Name" class="form-label">Session Name</label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
+        <!-- Session Name -->
+        <div class="form-group mb-3">
+            <label asp-for="Name" class="form-label">Session Name</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
 
-            <div class="form-group mb-3">
-                <label asp-for="TrainerId" class="form-label">Trainer</label>
-                <select asp-for="TrainerId" class="form-control" asp-items="ViewBag.TrainerId"></select>
-                <span asp-validation-for="TrainerId" class="text-danger"></span>
-            </div>
+        <!-- Trainer -->
+        <div class="form-group mb-3">
+            <label asp-for="TrainerId" class="form-label">Trainer</label>
+            <select asp-for="TrainerId" class="form-control" asp-items="ViewBag.TrainerId"></select>
+            <span asp-validation-for="TrainerId" class="text-danger"></span>
+        </div>
 
-            <div class="form-group mb-3">
-                <label asp-for="SessionDateTime" class="form-label">Date and Time</label>
-                <input asp-for="SessionDateTime" class="form-control" type="datetime-local" />
-                <span asp-validation-for="SessionDateTime" class="text-danger"></span>
-            </div>
+        <!-- Date and Time -->
+        <div class="form-group mb-3">
+            <label asp-for="SessionDateTime" class="form-label">Date and Time</label>
+            <input asp-for="SessionDateTime" class="form-control" type="datetime-local" />
+            <span asp-validation-for="SessionDateTime" class="text-danger"></span>
+        </div>
 
-            <div class="form-group mb-3">
-                <label asp-for="MaxParticipants" class="form-label">Max Participants</label>
-                <input asp-for="MaxParticipants" class="form-control" type="number" min="1" />
-                <span asp-validation-for="MaxParticipants" class="text-danger"></span>
-            </div>
+        <!-- Max Participants -->
+        <div class="form-group mb-3">
+            <label asp-for="MaxParticipants" class="form-label">Max Participants</label>
+            <input asp-for="MaxParticipants" class="form-control" type="number" min="1" />
+            <span asp-validation-for="MaxParticipants" class="text-danger"></span>
+        </div>
 
+        <!-- Actions -->
+        <div class="d-flex justify-content-between">
             <button type="submit" class="btn btn-primary">Create</button>
             <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
+
+<link rel="stylesheet" href="~/css/create-session.css" asp-append-version="true" />
 
 @section Scripts {
     @{

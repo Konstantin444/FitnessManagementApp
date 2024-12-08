@@ -1,43 +1,50 @@
-﻿@model IEnumerable<FitnessApp.Models.PersonalTrainingRequest>
+﻿@{
+    ViewData["Title"] = "Manage Training Requests";
+}
 
-<h1>Manage Training Requests</h1>
+<h1 class="text-center">Manage Training Requests</h1>
 
-<form method="get" asp-action="ManageTrainingRequests">
-    <label for="statusFilter">Filter by Status:</label>
-    <select name="statusFilter" id="statusFilter" class="form-control" onchange="this.form.submit()">
-        <option value="All" selected="@(ViewBag.StatusFilter == "All")">All</option>
-        <option value="Pending" selected="@(ViewBag.StatusFilter == "Pending")">Pending</option>
-        <option value="Approved" selected="@(ViewBag.StatusFilter == "Approved")">Approved</option>
-        <option value="Rejected" selected="@(ViewBag.StatusFilter == "Rejected")">Rejected</option>
-    </select>
+<!-- Filter Form -->
+<form method="get" asp-action="ManageTrainingRequests" class="mb-4 filter-form">
+    <div class="form-group">
+        <label for="statusFilter" class="form-label">Filter by Status:</label>
+        <select name="statusFilter" id="statusFilter" class="form-select" onchange="this.form.submit()">
+            <option value="All" selected="@(ViewBag.StatusFilter == "All")">All</option>
+            <option value="Pending" selected="@(ViewBag.StatusFilter == "Pending")">Pending</option>
+            <option value="Approved" selected="@(ViewBag.StatusFilter == "Approved")">Approved</option>
+            <option value="Rejected" selected="@(ViewBag.StatusFilter == "Rejected")">Rejected</option>
+        </select>
+    </div>
 </form>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Member</th>
-            <th>Trainer</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var request in Model)
-        {
-            <tr>
-                <td>@request.Member.UserName</td>
-                <td>@request.Trainer.Name</td>
-                <td>@request.Date.ToString("f")</td>
-                <td>@request.Status</td>
-                <td>
-                    <form method="post" asp-action="UpdateRequestStatus">
+<!-- Training Requests -->
+<div class="row g-4">
+    @foreach (var request in Model)
+    {
+        <div class="col-lg-4 col-md-6">
+            <div class="request-card">
+                <div class="card-header">@request.Member.UserName</div>
+                <div class="card-body">
+                    <p><strong>Trainer:</strong> @request.Trainer.Name</p>
+                    <p><strong>Date:</strong> @request.Date.ToString("f")</p>
+                    <p>
+                        <strong>Status:</strong>
+                        <span class="badge
+                            @(request.Status == "Approved" ? "badge-approved" :
+                              request.Status == "Rejected" ? "badge-rejected" :
+                              "badge-pending")">
+                            @request.Status
+                        </span>
+                    </p>
+                    <form method="post" asp-action="UpdateRequestStatus" class="d-flex justify-content-between">
                         <input type="hidden" name="id" value="@request.Id" />
-                        <button type="submit" name="status" value="Approved" class="btn btn-success btn-sm">Approve</button>
-                        <button type="submit" name="status" value="Rejected" class="btn btn-danger btn-sm">Reject</button>
+                        <button type="submit" name="status" value="Approved" class="btn btn-success">Approve</button>
+                        <button type="submit" name="status" value="Rejected" class="btn btn-danger">Reject</button>
                     </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<link rel="stylesheet" href="~/css/manage-training-requests.css" asp-append-version="true" />

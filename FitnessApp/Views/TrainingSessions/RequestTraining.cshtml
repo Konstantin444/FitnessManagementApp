@@ -1,39 +1,43 @@
 ﻿@model IEnumerable<Trainer>
 
-<h1>Request Personal Training</h1>
+@{
+    ViewData["Title"] = "Request Personal Training";
+}
+
+<h1 class="text-center form-title">Request Personal Training</h1>
 
 @if (Model == null || !Model.Any())
 {
-    <div class="alert alert-warning" role="alert">
+    <div class="alert alert-warning text-center" role="alert">
         No trainers are currently available. Please check back later.
     </div>
 }
 else
 {
-    <p>Select a trainer and request a training session:</p>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Trainer Name</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody>
+    <p class="text-center">Select a trainer and request a training session:</p>
+    <div class="trainers-wrapper">
+        <div class="row g-4">
             @foreach (var trainer in Model)
             {
-                <tr>
-                    <td>@trainer.Name</td>
-                    <td>
-                        <form method="post" action="/TrainingSessions/RequestTraining">
-                            <input type="hidden" name="trainerId" value="@trainer.Id" />
-                            <label for="date-@trainer.Id">Select Date:</label>
-                            <input type="date" name="date" id="date-@trainer.Id" required class="form-control d-inline-block w-auto" />
-                            <button type="submit" class="btn btn-primary">Request Training</button>
-                        </form>
-                    </td>
-                </tr>
+                <div class="col-md-6 col-lg-4">
+                    <div class="trainer-card">
+                        <div class="card-header">@trainer.Name</div>
+                        <div class="card-body">
+                            <form method="post" action="/TrainingSessions/RequestTraining">
+                                <input type="hidden" name="trainerId" value="@trainer.Id" />
+                                <label for="date-@trainer.Id" class="form-label">Select Date:</label>
+                                <input type="date" name="date" id="date-@trainer.Id" required class="form-control" />
+                                <button type="submit" class="btn btn-primary mt-3">Request Training</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             }
-        </tbody>
-    </table>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
 }
+
+<link rel="stylesheet" href="~/css/personal-training-request.css" asp-append-version="true" />

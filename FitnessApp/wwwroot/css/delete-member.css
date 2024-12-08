@@ -1,0 +1,68 @@
+﻿/* Page Title */
+.form-title {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    font-weight: bold;
+}
+
+/* Delete Card */
+.delete-card {
+    background-color: #191122; /* Card background */
+    color: white; /* Text color */
+    border: 1px solid #FFA264; /* Accent border */
+    border-radius: 8px; /* Rounded edges */
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-width: 600px; /* Centered fixed width */
+    margin: 0 auto; /* Center the card */
+}
+
+    /* Card Body */
+    .delete-card .card-body dl {
+        margin: 1rem 0;
+    }
+
+    .delete-card .card-body dt {
+        font-weight: 600;
+        color: #75FFEA; /* Title color */
+    }
+
+    .delete-card .card-body dd {
+        margin-bottom: 0.5rem;
+    }
+
+    /* Card Footer */
+    .delete-card .card-footer {
+        margin-top: 1rem;
+    }
+
+    .delete-card .btn {
+        margin: 0 0.5rem;
+        transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .delete-card .btn-danger {
+        background-color: #D9534F;
+        border-color: #D9534F;
+        color: white;
+    }
+
+        .delete-card .btn-danger:hover {
+            background-color: #C9302C;
+            border-color: #C9302C;
+            transform: translateY(-3px);
+        }
+
+    .delete-card .btn-secondary {
+        background-color: #75FFEA;
+        border-color: #75FFEA;
+        color: #191122;
+    }
+
+        .delete-card .btn-secondary:hover {
+            background-color: #64E0D5;
+            border-color: #64E0D5;
+            transform: translateY(-3px);
+        }

@@ -1,0 +1,113 @@
+﻿/* Page Title */
+.form-title {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    font-weight: bold;
+}
+
+/* Trainers Wrapper */
+.trainers-wrapper {
+    padding: 2rem 0;
+}
+
+/* Trainer Card */
+.trainer-card {
+    background-color: #191122; /* Card background */
+    color: white; /* Text color */
+    border: 1px solid #FFA264; /* Accent border */
+    border-radius: 8px; /* Rounded edges */
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    height: 100%; /* Ensure consistent height */
+}
+
+    /* Card Header */
+    .trainer-card .card-header {
+        color: #75FFEA; /* Header title color */
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+        background-color: transparent; /* No background */
+        border-bottom: none; /* No bottom border */
+        margin-bottom: 0.5rem;
+    }
+
+    /* Card Body */
+    .trainer-card .card-body .form-label {
+        color: white;
+        font-size: 1rem;
+    }
+
+    .trainer-card .form-control {
+        background-color: #281F33;
+        color: white;
+        border: 1px solid #FFA264;
+        border-radius: 6px;
+    }
+
+        .trainer-card .form-control:focus {
+            background-color: #281F33;
+            border-color: #75FFEA;
+            box-shadow: 0 0 0 0.2rem rgba(117, 255, 234, 0.25);
+        }
+
+    /* Button Styles */
+    .trainer-card .btn {
+        margin-top: 1rem;
+        transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .trainer-card .btn-primary {
+        background-color: #FFA264;
+        border-color: #FFA264;
+        color: white;
+    }
+
+        .trainer-card .btn-primary:hover {
+            background-color: #F8AF7E;
+            border-color: #F8AF7E;
+            transform: translateY(-3px);
+        }
+
+        .trainer-card .btn-primary:active {
+            background-color: #D67C40;
+            border-color: #D67C40;
+        }
+
+/* Back to List Button */
+.trainers-wrapper .btn-secondary {
+    background-color: #75FFEA;
+    border-color: #75FFEA;
+    color: #191122;
+}
+
+    .trainers-wrapper .btn-secondary:hover {
+        background-color: #64E0D5;
+        border-color: #64E0D5;
+        transform: translateY(-3px);
+    }
+
+/* Responsive Adjustments */
+.row.g-4 .col-md-6,
+.row.g-4 .col-lg-4 {
+    flex: 0 0 calc(33.333% - 1rem); /* Fit three cards per row */
+    max-width: calc(33.333% - 1rem);
+}
+
+@media (max-width: 768px) {
+    .row.g-4 .col-md-6,
+    .row.g-4 .col-lg-4 {
+        flex: 0 0 calc(50% - 1rem); /* Two cards per row */
+        max-width: calc(50% - 1rem);
+    }
+}
+
+@media (max-width: 576px) {
+    .row.g-4 .col-md-6,
+    .row.g-4 .col-lg-4 {
+        flex: 0 0 100%; /* Single card per row */
+        max-width: 100%;
+    }
+}

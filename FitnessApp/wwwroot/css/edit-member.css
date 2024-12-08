@@ -1,0 +1,92 @@
+﻿/* Page Title */
+.form-title {
+    color: white;
+    font-size: 2.5rem;
+    margin-top: 2rem;
+    font-weight: bold;
+}
+
+/* Form Wrapper */
+.create-form-wrapper {
+    min-height: calc(100vh - 120px); /* Full height minus header and footer */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: #281F33; /* Consistent background */
+    margin-top: -3rem;
+}
+
+/* Form Styling */
+.create-session-form {
+    background-color: #191122; /* Card-like background */
+    color: white;
+    border: 1px solid #FFA264; /* Accent border */
+    border-radius: 8px; /* Rounded edges */
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px; /* Limit the width */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+    /* Form Labels */
+    .create-session-form .form-label {
+        font-weight: bold;
+        color: #75FFEA; /* Accent color for labels */
+    }
+
+    /* Form Inputs */
+    .create-session-form .form-control {
+        background-color: #281F33; /* Darker input background */
+        color: white; /* Text color */
+        border: 1px solid #FFA264; /* Border consistent with the design */
+        border-radius: 6px;
+        padding: 0.5rem;
+    }
+
+        .create-session-form .form-control:focus {
+            border-color: #FFA264; /* Highlight border on focus */
+            box-shadow: 0 0 4px rgba(255, 162, 100, 0.5); /* Light glow effect */
+            outline: none;
+        }
+
+    /* Buttons */
+    .create-session-form .btn-primary {
+        background-color: #FFA264;
+        border-color: #FFA264;
+        color: white;
+        font-weight: bold;
+        transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+        .create-session-form .btn-primary:hover {
+            background-color: #F8AF7E;
+            border-color: #F8AF7E;
+            transform: translateY(-3px);
+        }
+
+        .create-session-form .btn-primary:active {
+            background-color: #D67C40;
+            border-color: #D67C40;
+            transform: scale(0.98);
+        }
+
+    .create-session-form .btn-secondary {
+        background-color: #75FFEA;
+        border-color: #75FFEA;
+        color: #191122;
+        font-weight: bold;
+        transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+        .create-session-form .btn-secondary:hover {
+            background-color: #64E0D5;
+            border-color: #64E0D5;
+            transform: translateY(-3px);
+        }
+
+        .create-session-form .btn-secondary:active {
+            background-color: #53C4B8;
+            border-color: #53C4B8;
+            transform: scale(0.98);
+        }
