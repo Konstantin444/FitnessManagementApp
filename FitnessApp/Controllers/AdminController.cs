@@ -115,9 +115,6 @@ public class AdminController : Controller
         return RedirectToAction("Dashboard");  // Redirect to Dashboard after deletion
     }
 
-
-
-
     [HttpGet]
     [Authorize(Roles = "Admin")]
     public IActionResult CreateTrainer()
@@ -178,6 +175,4 @@ public class AdminController : Controller
         // Redirect back to the page where the admin can manage training requests
         return RedirectToAction("ManageTrainingRequests"); // Or you can use RedirectToAction("Dashboard") if needed
     }
-
-
 }

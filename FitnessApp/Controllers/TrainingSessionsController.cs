@@ -53,7 +53,7 @@ namespace FitnessApp.Controllers
             var trainingSession = await _context.TrainingSessions
                 .Include(t => t.Reservations)
                 .ThenInclude(r => r.User)
-                .Include(t => t.Trainer) // Include Trainer
+                .Include(t => t.Trainer)
                 .FirstOrDefaultAsync(m => m.SessionId == id);
 
             if (trainingSession == null)
@@ -78,7 +78,6 @@ namespace FitnessApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("SessionId,Name,TrainerId,SessionDateTime,MaxParticipants")] TrainingSession trainingSession)
         {
-            // Check if the date is in the past
             if (trainingSession.SessionDateTime.Date < DateTime.Now.Date)
             {
                 ModelState.AddModelError("SessionDateTime", "The session date cannot be in the past.");
@@ -109,7 +108,7 @@ namespace FitnessApp.Controllers
                 return NotFound();
             }
 
-            ViewData["TrainerId"] = new SelectList(_context.Trainers, "Id", "Name", trainingSession.TrainerId); // Populate trainers for dropdown
+            ViewData["TrainerId"] = new SelectList(_context.Trainers, "Id", "Name", trainingSession.TrainerId); 
             return View(trainingSession);
         }
 
@@ -164,7 +163,7 @@ namespace FitnessApp.Controllers
             }
 
             var trainingSession = await _context.TrainingSessions
-                .Include(t => t.Trainer) // Include Trainer for confirmation
+                .Include(t => t.Trainer) 
                 .FirstOrDefaultAsync(m => m.SessionId == id);
 
             if (trainingSession == null)
@@ -190,8 +189,8 @@ namespace FitnessApp.Controllers
                 return NotFound();
             }
 
-            _context.Reservations.RemoveRange(trainingSession.Reservations); // Remove reservations
-            _context.TrainingSessions.Remove(trainingSession); // Remove the session
+            _context.Reservations.RemoveRange(trainingSession.Reservations); 
+            _context.TrainingSessions.Remove(trainingSession);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
@@ -312,7 +311,7 @@ namespace FitnessApp.Controllers
             var trainers = await _context.Trainers.ToListAsync();
 
             // Pass the list of trainers to the view
-            ViewBag.Trainers = new SelectList(trainers, "Id", "Name"); // "Id" is the value, "Name" is what is displayed
+            ViewBag.Trainers = new SelectList(trainers, "Id", "Name"); 
 
             return View();
         }
@@ -351,7 +350,7 @@ namespace FitnessApp.Controllers
             {
                 _context.Trainers.Add(trainer);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index"); // Redirect to a list of trainers or training sessions
+                return RedirectToAction("Index"); 
             }
             return View(trainer);
         }
